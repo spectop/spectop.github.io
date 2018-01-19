@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="Spectop&#39;s">
 <meta property="og:description" content="由于新一届的物联网大赛有关于人脸识别的部分，因此老师让我给学弟学妹讲一讲有关人脸识别的部分。因为上次刷知乎的时候看到了一个圣诞节时的微信头像自动带圣诞帽的小程序用到了这个 face_recognition 的 Python 库，上网查了一下，发现离线识别率高达99.38%，因此就打算使用这个库了。 理想很丰满，现实很骨感。折腾了很长时间，不由得感叹，这个库是真 TMD 难配。 以下就是记录的一些过">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-19T04:18:48.571Z">
+<meta property="og:updated_time" content="2018-01-19T12:25:24.372Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Face Recognition的配置和初步使用">
 <meta name="twitter:description" content="由于新一届的物联网大赛有关于人脸识别的部分，因此老师让我给学弟学妹讲一讲有关人脸识别的部分。因为上次刷知乎的时候看到了一个圣诞节时的微信头像自动带圣诞帽的小程序用到了这个 face_recognition 的 Python 库，上网查了一下，发现离线识别率高达99.38%，因此就打算使用这个库了。 理想很丰满，现实很骨感。折腾了很长时间，不由得感叹，这个库是真 TMD 难配。 以下就是记录的一些过">
@@ -369,7 +369,27 @@
 <h2 id="安装-dlib"><a href="#安装-dlib" class="headerlink" title="安装 dlib"></a>安装 dlib</h2><p>作者有给连接指导怎样安装 dlib 的，<a href="https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf" target="_blank" rel="noopener">How to install dlib from source on macOS or Ubuntu</a>，但是这个网址被墙了，可以科学上网的同学就直接去看。</p>
 <p>为了帮助无法科学上网的同学，我把 dlib 安装指导 copy 了过来：</p>
 <blockquote>
-<p>为什么我开了ss 也打不开啊，这里挖坑，等会儿填</p>
+<p>前置工作：</p>
+<ul>
+<li><p>For macOS</p>
+<ul>
+<li>安装 XCode （主要是 XCode command line utils）</li>
+<li>安装 homebrew</li>
+<li><code>brew install boost-python --with-python3 --without-python</code></li>
+</ul>
+</li>
+<li><p>For Linux</p>
+<ul>
+<li><code>sudo apt-get install libboost-all-dev</code></li>
+</ul>
+</li>
+</ul>
+<p>安装：</p>
+<ul>
+<li>clone the code from github<br><code>git clone https://github.com/davisking/dlib.git</code></li>
+<li>build the main dlib library<br><code>cd dlib</code><br><code>mkdir build; cd build; cmake .. -DDLIB_USE_CUDA=0 -DUSE_AVZ_INSTRUCTIONS=1; cmake --build</code></li>
+<li>build and install the python extensions<br><code>cd ..</code><br><code>python3 setup.py install --yes USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA</code></li>
+</ul>
 </blockquote>
 <h2 id="安装-face-recognition"><a href="#安装-face-recognition" class="headerlink" title="安装 face_recognition"></a>安装 face_recognition</h2><p>这个就没什么好说的了，<code>pip3 install face_recognition</code></p>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>如果你进入 Python3，可以成功 <code>import dlib</code> ，就表示你的 dlib 成功安装了<br>如果你在 terminal 内输入 <code>face_</code> ，按 tab 键，能够自动补全 face_recognition 说明 face_recognition 已经成功安装了</p>
