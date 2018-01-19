@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="机器学习,Python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Spectop's" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="科学算法库的安装(linux) 1.安装Numpysudo apt-get install python-numpy  2.安装Scipysudo apt-get install python-numpy  3.Matplotlibsudo apt-get install tk-dev sudo apt-get install python-gtk2-dev sudo apt-get instal">
+<meta name="keywords" content="机器学习,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「学习笔记」机器学习(1)">
+<meta property="og:url" content="http://yoursite.com/2016/01/22/「学习笔记」机器学习-1/index.html">
+<meta property="og:site_name" content="Spectop&#39;s">
+<meta property="og:description" content="科学算法库的安装(linux) 1.安装Numpysudo apt-get install python-numpy  2.安装Scipysudo apt-get install python-numpy  3.Matplotlibsudo apt-get install tk-dev sudo apt-get install python-gtk2-dev sudo apt-get instal">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-17T08:46:35.903Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="「学习笔记」机器学习(1)">
+<meta name="twitter:description" content="科学算法库的安装(linux) 1.安装Numpysudo apt-get install python-numpy  2.安装Scipysudo apt-get install python-numpy  3.Matplotlibsudo apt-get install tk-dev sudo apt-get install python-gtk2-dev sudo apt-get instal">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/01/22/「学习笔记」机器学习-1/"/>
+
+
+
+
+
+  <title>「学习笔记」机器学习(1) | Spectop's</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Spectop's</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/22/「学习笔记」机器学习-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Spectop">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/9566880?v=3&u=5aaa5ac72ef2caf60678af301b9fc3ea4e604ef9&s=400">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Spectop's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">「学习笔记」机器学习(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-22T14:32:57+08:00">
+                2016-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="科学算法库的安装-linux"><a href="#科学算法库的安装-linux" class="headerlink" title="科学算法库的安装(linux)"></a>科学算法库的安装(linux)</h1><ul>
+<li>1.安装Numpy<pre><code>sudo apt-get install python-numpy
+</code></pre></li>
+<li>2.安装Scipy<pre><code>sudo apt-get install python-numpy
+</code></pre></li>
+<li>3.Matplotlib<pre><code>sudo apt-get install tk-dev
+sudo apt-get install python-gtk2-dev
+sudo apt-get install python-pyside
+</code></pre></li>
+<li>4.spyder GUI环境<pre><code>sudo apt-get install spyder
+</code></pre></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p><strong>上述安装完毕后，可以利用</strong></p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = np.linspace(<span class="number">0</span>,<span class="number">4</span>*<span class="number">3.1415</span>,<span class="number">100</span>)</span><br><span class="line">y = np.sin(x)</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>,<span class="number">4</span>))</span><br><span class="line">plt.plot(x,y,label=<span class="string">"$sin(x)$"</span>,color=<span class="string">"red"</span>,linewidth=<span class="number">2</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><strong>进行测试。若生成正弦曲线窗口，则配置完成. </strong></p>
+</li>
+</ul>
+<h1 id="NumPy的基本操作"><a href="#NumPy的基本操作" class="headerlink" title="NumPy的基本操作"></a>NumPy的基本操作</h1><ul>
+<li><h2 id="Numpy-的导入"><a href="#Numpy-的导入" class="headerlink" title="Numpy 的导入"></a>Numpy 的导入</h2><pre><code>import numpy as np
+</code></pre><p>  这种写法在使用相关函数的时候需要写明是哪个包的，如:</p>
+<pre><code>myZero = np.zeros([3,5])
+</code></pre><p>  还可以导入包全局使用</p>
+<pre><code>from numpy import *
+</code></pre></li>
+</ul>
+<ul>
+<li><h2 id="NumPy-的基本操作"><a href="#NumPy-的基本操作" class="headerlink" title="NumPy 的基本操作"></a>NumPy 的基本操作</h2><ol>
+<li><p>创建全0矩阵和全1矩阵</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myZero = zeros([n,m])</span><br><span class="line">myOne = ones([n,m])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成随机矩阵</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myRand = random.rand(n,m)   <span class="comment"># n 行 m 列的 0～1 之间的随机数矩阵</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成单位矩阵</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myEye = eye(n)   <span class="comment"># n * n 的单位阵</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将一个数组转化为一个矩阵</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myMatrix = mat([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],[<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>矩阵所有元素求和</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">S = sum(myMatrix)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>矩阵各元素的乘积</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matrix = multiply(matrix1, matrix2) <span class="comment"># matrix1 和 matrix2 对应元素相乘的矩阵</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>求矩阵的 n 次幂</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matrix = power(myMatrix, n) <span class="comment">#生成一个矩阵，矩阵内部的元素是原矩阵对应元素的n次幂</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>矩阵的转置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> matrix.T   <span class="comment">#打印转置后的矩阵，不改变原矩阵</span></span><br><span class="line">matrix.transpose()   <span class="comment">#同上</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>矩阵的其他操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[m, n] = shape(matrix) <span class="comment"># m, n为矩阵的行列数</span></span><br><span class="line">myscl1 = matrix[<span class="number">0</span>] <span class="comment"># 矩阵的切片操作，取第一行</span></span><br><span class="line">myscl2 = matrix.T[<span class="number">0</span>] <span class="comment"># 矩阵的切片操作，取第一列</span></span><br><span class="line">mycpmat = matrix.copy() <span class="comment"># 矩阵的复制</span></span><br><span class="line"><span class="keyword">print</span> matrix1 &lt; matrix2 <span class="comment"># 矩阵的比较，会逐一比较对应的每一个元素，并输出一个仅包含True, False 的相同大小的矩阵</span></span><br><span class="line">dot(m1,m2)  <span class="comment">#计算m1,m2的点积</span></span><br><span class="line">norm(v)  <span class="comment">#计算向量V的范数</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><h2 id="Linalg线性代数库"><a href="#Linalg线性代数库" class="headerlink" title="Linalg线性代数库"></a>Linalg线性代数库</h2><ol>
+<li><p>矩阵的行列式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> linalg.det(matrix)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>矩阵的逆</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> linalg.inv(matrix)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>矩阵的对称</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> matrix * matrix.T</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>矩阵的秩</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> linalg.matrix_rank(A)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可逆矩阵求解</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> linalg.solve(A,b.T) <span class="comment"># 如果b已经是一列的就不用转置了</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><h2 id="各类距离的python实现"><a href="#各类距离的python实现" class="headerlink" title="各类距离的python实现"></a>各类距离的python实现</h2><p>   <strong>各类距离会在后面说明</strong></p>
+<ol>
+<li><p>Euclidean Distance</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector1 = mat([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">vector2 = mat([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line"><span class="keyword">print</span> sqrt((vector1-vector2)*(vector1-vector2).T)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Manhattan Distance</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector1 = mat([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">vector2 = mat([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line"><span class="keyword">print</span> sum(abs(vector1-vector2))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Chebyshev Distance</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector1 = mat([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">vector2 = mat([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line"><span class="keyword">print</span> abs(vector1-vector2).max()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Cosine</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cosV12 = dot(vector1,vector2)/(linalg.norm(vector1)*linalg.norm(vector2))</span><br><span class="line"><span class="keyword">print</span> cosV12</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hamming Distance</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">matV = mat([[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>], [<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]])</span><br><span class="line">smstr = nonzero(matV[<span class="number">0</span>] - matV[<span class="number">1</span>]);</span><br><span class="line"><span class="keyword">print</span> shape(smstr[<span class="number">0</span>])[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Jaccard Distance</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scipy.spatial.distance <span class="keyword">as</span> dist</span><br><span class="line">matV = mat([[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>], [<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]])</span><br><span class="line"><span class="keyword">print</span> dist.pdist(matV, <span class="string">'jaccard'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="机器学习的数学基础"><a href="#机器学习的数学基础" class="headerlink" title="机器学习的数学基础"></a>机器学习的数学基础</h1><ul>
+<li><strong>范数</strong><blockquote>
+<p>向量的范数可以简单、形象的理解为<strong>向量的长度</strong>，或者向量到坐标系原点的距离，或者<strong>相应空间内的两点之间的距离</strong></p>
+<p><strong><em>向量的范数定义</em></strong> : 向量的范数是一个函数 $ \parallel x\parallel $ ,满足非负性 $ \parallel x\parallel &gt; 0 $ , 齐次性 $ \parallel cx\parallel = \mid c\mid\parallel x\parallel $ ,三角不等式 $ \parallel x+y\parallel \leq\parallel x\parallel +\parallel y\parallel $ 。</p>
+<p>L1范数：  $\parallel x\parallel $为 $ x $向量各个元素绝对值之和。<br>L2范数：  $\parallel x\parallel $为 $ x $向量各个元素平方和的开方，又称 Euclidean 范数或者 Frobenius 范数。<br>Lp范数：  $\parallel x\parallel $为 $ x $向量各个元素绝对值 $ p $次方和的  $ 1\over p $ 次方<br>L $\infty $范数：  $\parallel x\parallel $为 $ x $向量各个元素绝对值最大的那个元素，如下：$$ \lim_{k\to\infty}\left( \sum_{i=1}^n\mid p_i-q_i\mid ^k\right)^\frac{1}{k}<br>$$</p>
+</blockquote>
+</li>
+<li><strong>Minkowski Distance (闵可夫斯基距离)</strong><blockquote>
+<p>严格意义上讲，Minkowski Distance 不是一种距离，而是一组距离的定义。<br>两个n维向量 $ A(x_{11},x_{12},\cdots,x_{1n}) $ 与 $ B(x_{21},x_{22},\cdots,x_{2n}) $ 间的Minkowski距离定义为：<br>$$ d_{12}=\sqrt[p]{\sum_{k=1}^n(x_{1k}-x_{2k})^p} $$<br>其中p是一个变参数。</p>
+<ul>
+<li>当 p=1 时，就是 Manhattan Distance (曼哈顿距离)</li>
+<li>当 p=2 时，就是 Euclidean Distance (欧氏距离)</li>
+<li>当 $ p\to\infty $ 时，就是 Chebyshev Distance (切比雪夫距离)</li>
+</ul>
+</blockquote>
+</li>
+<li><strong>Euclideam Distance</strong><blockquote>
+<p>欧氏距离（L2范数）是最易于理解的一种距离计算方法，源于欧氏空间的两点距离公式<br>两个n维向量 $ A(x_{11},x_{12},\cdots,x_{1n}) $ 与 $ B(x_{21},x_{22},\cdots,x_{2n}) $ 之间的欧氏距离：<br>$$ d_{12}=\sqrt{\sum_{k=1}^n(x_{1k}-x_{2k})^2} $$<br>表示为向量运算的形式：<br>$$ d_{12}=\sqrt{(A - B)(A - B)^T} $$</p>
+</blockquote>
+</li>
+<li><strong>Manhattan Distance</strong><blockquote>
+<p>曼哈顿距离（L1范数）可以理解为计算网格中两点路径的距离<br>二维平面两点 $ A(x_1,y_1) $ 和 $ B(x_2,y_2) $ 间的曼哈顿距离:<br>$$ d_{12}=\mid x_1-x_2\mid +\mid y_1-y_2\mid $$<br>两个n维向量 $ A(x_{11},x_{12},\cdots,x_{1n}) $ 与 $ B(x_{21},x_{22},\cdots,x_{2n}) $ 之间的曼哈顿距离：<br>$$ d_{12}=\sum_{k=1}^n\mid x_{1k}-x_{2k}\mid $$</p>
+</blockquote>
+</li>
+<li><strong>Chebyshev Distance</strong><blockquote>
+<p>切比雪夫距离类似与棋盘上国王从一点到另一点移动的最少次数，即 $ max(\mid x_1-x_2\mid,\mid y_1-y_2\mid) $<br>两个n维向量 $ A(x_{11},x_{12},\cdots,x_{1n}) $ 与 $ B(x_{21},x_{22},\cdots,x_{2n}) $ 之间的切比雪夫距离：<br>$$ d_{12}=max_i(\mid x_{1i}-x_{2i}\mid) $$<br>该公式的另一个等价公式：<br>$$ d_{12}=\lim_{k\to\infty}\left(\sum_{i=1}^n\mid x_{1i}-x_{2i}\mid^k\right)^\frac{1}{k} $$</p>
+</blockquote>
+</li>
+<li><strong>Cosine</strong><blockquote>
+<p>夹角余弦可以用来两个向量方向的差异，机器学习中借用这一概念来衡量样本之间的差异<br>两个n维向量 $ A(x_{11},x_{12},\cdots,x_{1n}) $ 与 $ B(x_{21},x_{22},\cdots,x_{2n}) $ 之间的夹角余弦：<br>$$ \cos\theta=\frac{AB}{\mid A\mid\mid B\mid} $$<br>即：<br>$$ \cos\theta=\frac{\sum_{k=1}^nx_{1k}x_{2k}}{\sqrt{\sum_{k=1}^nx_{1k}^2}\sqrt{\sum_{k=1}^nx_{2k}^2}} $$</p>
+</blockquote>
+</li>
+<li><strong>Hamming Distance</strong><blockquote>
+<p>汉明距离的定义：两个等长字符串s1,s2,将其中一个变成另一个需要的最小替换次数。<br>应用：信息编码（为了增强容错性，应使得编码间的最小汉明距离尽可能大）</p>
+</blockquote>
+</li>
+<li><strong>Jaccard Similarity Coefficient(杰卡德相似系数)</strong><blockquote>
+<p>杰卡德相似系数：两个集合A,B的交集元素在并集元素中所占的比例，用符号 $ J(A,B) $ 表示<br>$$ J(A,B)=\frac{\mid A\cap B\mid}{\mid A\cup B\mid} $$<br>杰卡德距：与杰卡德相似系数相反的概念：<br>$$ J_\delta(A,B)=1-J(A,B)=\frac{\mid A\cup B\mid-\mid A\cap B\mid}{\mid A\cup B\mid} $$</p>
+</blockquote>
+</li>
+<li><p><strong>特征间的相关性</strong></p>
+<blockquote>
+<ol>
+<li><p>相关系数与相关距离<br> 相关系数：<br> $$ \rho_{XY}=\frac{Cov(X,Y)}{\sqrt{D(X)}\sqrt{D(Y)}}=\frac{E((X-EX)(Y-EY))}{\sqrt{D(X)}\sqrt{D(Y)}} $$<br> 相关距离：<br> $$ D_{XY}=1-\rho_{XY} $$<br>python实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">featuremat = mat(...)  <span class="comment"># 初始化矩阵</span></span><br><span class="line"><span class="comment"># 计算均值</span></span><br><span class="line">mv1 = mean(featuremat[<span class="number">0</span>])  <span class="comment"># 计算第一列的均值</span></span><br><span class="line">mv2 = mean(featuremat[<span class="number">1</span>])  <span class="comment"># 计算第二列的均值</span></span><br><span class="line"><span class="comment">#计算两列的标准差</span></span><br><span class="line">dv1 = std(featuremat[<span class="number">0</span>]) </span><br><span class="line">dv2 = std(featuremat[<span class="number">1</span>])</span><br><span class="line">corref = mean(multiply(featuremat[<span class="number">0</span>]-mv1,featuremat[<span class="number">1</span>]-mv2))/(dv1*dv2)</span><br><span class="line"><span class="keyword">print</span> corref  <span class="comment">#输出相关系数</span></span><br><span class="line"><span class="keyword">print</span> corrcoef(featuremat)  <span class="comment">#输出相关系数矩阵</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>马氏距离</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/22/重写博客/" rel="next" title=" 重写博客">
+                <i class="fa fa-chevron-left"></i>  重写博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/29/markdown文档中mathjax的问题/" rel="prev" title="markdown文档中mathjax的问题">
+                markdown文档中mathjax的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars1.githubusercontent.com/u/9566880?v=3&u=5aaa5ac72ef2caf60678af301b9fc3ea4e604ef9&s=400"
+                alt="Spectop" />
+            
+              <p class="site-author-name" itemprop="name">Spectop</p>
+              <p class="site-description motion-element" itemprop="description">To be or not to be.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/spectop" target="_blank" title="github">
+                      
+                        <i class="fa fa-fw fa-globe"></i>github</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#科学算法库的安装-linux"><span class="nav-number">1.</span> <span class="nav-text">科学算法库的安装(linux)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NumPy的基本操作"><span class="nav-number">2.</span> <span class="nav-text">NumPy的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Numpy-的导入"><span class="nav-number">2.1.</span> <span class="nav-text">Numpy 的导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NumPy-的基本操作"><span class="nav-number">2.2.</span> <span class="nav-text">NumPy 的基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linalg线性代数库"><span class="nav-number">2.3.</span> <span class="nav-text">Linalg线性代数库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各类距离的python实现"><span class="nav-number">2.4.</span> <span class="nav-text">各类距离的python实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习的数学基础"><span class="nav-number">3.</span> <span class="nav-text">机器学习的数学基础</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Spectop</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
