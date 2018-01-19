@@ -958,13 +958,17 @@ sudo apt-get install python-pyside
       
         
           
-            <p>一件很不幸的事，我重装系统的时候好像忘了把hexo的文章备份下来，结果那些markdown文档就都呵呵了 TAT～</p>
-<p>重新配置了一次hexo真的好麻烦，搞了半天，我真不知道我当时是怎么弄好的！</p>
-<p>之前的那些文章我还没有md文档，不过我倒是把整个博客给clone下来保存好了，以后如果有时间还是会恢复的吧。</p>
-<p>这么快就放假了，然而真心觉得2015有点对不起自己，对不起这一年的时间。不过怎么说呢，后悔是没有用的，毕竟人要往前看嘛。只是希望2016结束的时候我不要还是这样，还是说出同样的话。</p>
-<p><strong> 再不努力就老了！</strong></p>
-
-          
+          一件很不幸的事，我重装系统的时候好像忘了把hexo的文章备份下来，结果那些markdown文档就都呵呵了 TAT～
+重新配置了一次hexo真的好麻烦，搞了半天，我真不知道我当时是怎么弄好的！
+之前的那些文章我还没有md文档，不过我倒是把整个博客给clone下来保存好了，以后如果有时间还是会恢复的吧。
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/01/22/重写博客/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1104,86 +1108,19 @@ sudo apt-get install python-pyside
       
         
           
-            <h1 id="0-1背包问题"><a href="#0-1背包问题" class="headerlink" title="0/1背包问题"></a>0/1背包问题</h1><blockquote>
-<p>有N件物品和一个容量为V的背包。放入第i件物品耗费的空间是Ci，得到的价值是Wi。求解将哪些物品装入背包可使价值总和最大？</p>
-</blockquote>
-<p>  将每一件物品从1到n编号，从第1件物品开始，每一件物品就只有两个状态：放进背包了 / 没有放进背包。</p>
-<p>  我们画一张表格，行对应着每一件物品，列对应着背包的重量，那么pack[i][j]就表示  <strong>前i件物品，背包最大承重j</strong> 这个子问题的解。</p>
-<p> 给一组数据作为样例：</p>
-<pre><code>5 10
-6 2
-3 2
-5 6
-4 5
-6 4
-</code></pre><p>  第一行表示有5件物品，10为最大承重，2-6行为5个物品的价值和重量。</p>
-<p><strong>生成以下的表格</strong></p>
-<pre><code>0    6    6    6    6     6     6     6     6     6
-0    6    6    9    9     9     9     9     9     9
-0    6    6    9    9     9     9    11    11    14
-0    6    6    9    9     9    10    11    13    14
-0    6    6    9    9    12    12    15    15    15
-</code></pre><p>　所以最终的结果是最后一行最后一列的 <strong>15</strong></p>
-<p><strong>给出代码：</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* 01 package problem */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> pack[<span class="number">100</span>][<span class="number">1000</span>];</span><br><span class="line"><span class="keyword">int</span> c[<span class="number">100</span>],w[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">make</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(pack,<span class="number">0</span>,<span class="keyword">sizeof</span>(pack));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = w[i]; j &lt;= r; j++)</span><br><span class="line">            pack[i][j] = max(pack[i - <span class="number">1</span>][j - c[i]] + w[i], pack[i - <span class="number">1</span>][j]);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;pack[n][r];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t,n,V;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123; <span class="comment">//多组数据</span></span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;V;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;c[i]&gt;&gt;w[i];</span><br><span class="line">        make(n,V);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>代码优化</strong></p>
-<p>这个代码在时间上应该已经不能再优化了，但是还可以考虑空间复杂度的优化。</p>
-<p><strong>优化的基本思路：</strong></p>
-<p>考虑所用到的状态转移方程: <code>pack[i][j] = max(pack[i-1][j-c[i]] + w[i], pack[i-1][j]);</code> 可以发现 <code>pack[i][j]</code> 的值并不和整个二维表的每一个数字的值都有关，而是仅仅和上面一行的值有关，所以可以使用 <code>pack[2][n]</code> 这么大的数组来存储结果。</p>
-<p>考虑状态转移方程的实际情况，还可以使用<strong>一维数组</strong>来进行运算，但是要注意的是，此时，循环应该从后往前进行。因为如果是按从前往后的顺序，那么 <code>pack[i][j] = max(pack[i][j-c[i]] + w[i] , pack[i][j]);</code> 中进行比较的两个值 <code>pack[i][j]</code> 是没有更新的，也就是 <code>pack[i-1][j]</code> 的值，而 <code>pack[i][j - c[i]]</code>一定是前面被更新过的，也就是 <code>pack[i][j-w[i]]</code> 的值。这就是说，<code>max()</code> 比较的两个数是属于原来二维数组中不同的两行，而不是我们期望的相同的两行。</p>
-<p>如果上面的说法不能理解我们不妨这样：有一件物品的性价比很高，在pack数组的某个位置，我们第一次将这个物品放入背包中，但是按照从前往后的顺序，很可能在这个位置的后面某个位置我们会<strong><em>再次</em></strong>将这个物品添加进去。</p>
-<p><strong>优化后的代码</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> pack[<span class="number">10000</span>],c[<span class="number">1000</span>],w[<span class="number">1000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">make</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(pack,<span class="number">0</span>,<span class="keyword">sizeof</span>(pack));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = r; j &gt;= w[i]; j--)</span><br><span class="line">            pack[j] = max(pack[j], pack[j - c[i]] + w[i]);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;pack[r]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,t,V;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;V;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">cin</span>&gt;&gt;c[i]&gt;&gt;w[i];</span><br><span class="line">        make(n,V);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>初始化问题：</strong></p>
-<blockquote>
-<ul>
-<li><p>如果限定背包必须装满，那么需要将数组初始化为 -∞ （负无穷大）</p>
-</li>
-<li><p>如果背包可以不装满，那么数组初始化为0</p>
-</li>
-</ul>
-</blockquote>
-<p><em>为了后面的书写方便，我们把代码改成这样</em><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ZeroOnePack</span><span class="params">(<span class="keyword">int</span> c,<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = V; i &gt;= c; i--)</span><br><span class="line">		pack[i] = max(pack[i], pack[i - c] + w);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><em>这样01背包问题的主要代码就是这样：</em></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	ZeroOnePack(c[i],w[i]);</span><br></pre></td></tr></table></figure>
-<p>这样ZeroOnePack()这个函数就专门解决了<strong>“放一个物品”</strong>的问题</p>
-<h1 id="完全背包问题"><a href="#完全背包问题" class="headerlink" title="完全背包问题"></a>完全背包问题</h1><blockquote>
-<p>完全背包问题和0/1背包问题几乎一模一样，不同的就是物品不再是一个，而是无数个</p>
-</blockquote>
-<p><strong>思路</strong></p>
-<p>完全背包不同处是原来的一个物品变成了无数个，但是我们还是可以把它变成0/1背包问题的，试想一下，即使拥有无数个物品，但是真的可以用无数个吗？</p>
-<p>不可能，因为背包的容量有限，所以每个物品c,w<strong>最多可以使用[V/c]个</strong>，所以以下面的数据为例：</p>
-<pre><code>c:    3    2    5    4
-w:    7    4    2    5
-V = 10
-</code></pre><p>我们完全可以把这组数据改成这样：</p>
-<pre><code>c:    3    3    3    2    2    2    2    2    5    5    4    4
-w:    7    7    7    4    4    4    4    4    2    2    5    5
-</code></pre><p>原因自然是背包容量最大为10,所以占用空间为3的物品最多放3个，修改过后的数据就可以用0/1背包的方法处理</p>
-<p>那难道完全背包需要重开一个c2[],w2[]，然后按0/1背包处理吗？</p>
-<p>当然不是，还记得我们将0/1背包进行优化时说的如果循环从前向后进行会发生什么后果吗？</p>
-<p>这一句 <strong>“但是按照从前往后的顺序，很可能在这个位置的后面某个位置我们会再次将这个物品添加进去。”</strong></p>
-<p>看到了？0/1背包时为了避免重复，我们将循环改为从后往前，但是完全背包是可以重复使用物品的，对吧？所以代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CompletePack</span><span class="params">(c,w)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = c; i &lt;= V; i++)</span><br><span class="line">		pack[i] = max(pack[i],pack[i - c] + w )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>怎么样，和0/1背包只有一点点的差别对不对？</p>
-<h1 id="3-多重背包问题"><a href="#3-多重背包问题" class="headerlink" title="3.多重背包问题"></a>3.多重背包问题</h1><blockquote>
-<p>多重背包和0/1背包不同的地方就是物品不是一个而是有m个</p>
-</blockquote>
-<p>所以我们还是就一个物品c,w,m分析：</p>
-<p>对于m可能有两种情况：</p>
-<ol>
-<li><code>m &gt;= [V/c]</code>，这种情况明显是完全背包</li>
-<li><code>0 &lt; m &lt; [v/c]</code>，对于这种情况需要认真分析一下</li>
-</ol>
-<p>我们仍然需要按照0/1背包的思路把这些物品拆开，而且我们要保证我们拆出来的这些物品可以通过组合表示出1到m任意件物。</p>
-<p>我们可以考虑二进制的计数方法，这样我们把物品拆成<code>(c,w) , (2c,2w) , (4c,4w) …… [(m-2^k)*c , (m-2^k)*w)]</code></p>
-<p>不管最优解会在这件物品中取几件，我们都可以用我们拆出来的这些物品来表示（请自己证明，二进制的思想）</p>
-<p>所以，有了思路，代码就简单了：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MultiplePack</span><span class="params">(c,w,m)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (c * m &gt;= V) &#123;</span><br><span class="line">		CompletePack(c,w);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	k = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (k &lt; m) &#123;</span><br><span class="line">		ZeroOnePack(c*k,w*k);</span><br><span class="line">		m = m - k;</span><br><span class="line">		k = <span class="number">2</span> * k;</span><br><span class="line">	&#125;</span><br><span class="line">	ZeroOnePack(c * m, w * m);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><em>其实就是0/1背包和完全背包的组合，有木有？</em></strong></p>
-<p>未完待续……</p>
+          0/1背包问题
+有N件物品和一个容量为V的背包。放入第i件物品耗费的空间是Ci，得到的价值是Wi。求解将哪些物品装入背包可使价值总和最大？
 
-          
+  将每一件物品从1到n编号，从第1件物品开始，每一件物品就只有两个状态：放进背包了 / 没有放进背包。
+  我们画一张表格，行对应着每一件物品，列对应着背包
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/07/21/背包九讲/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1635,16 +1572,16 @@ w:    7    7    7    4    4    4    4    4    2    2    5    5
       
         
           
-            <p>为了搞这个博客我确实花了不少功夫，从昨天晚上12点左右就开始了，看教程啊，然后自己操作去搞。加上一些教程由于时间的问题，总是存在着一些坑要填。不过麻烦归麻烦，我也总算是在3点的时候把东西推到github上面去了。</p>
-<p>今天在申请免费的一级域名，免费的太难找到了，找到的又都是坑。反正这段时间域名解析什么的就慢慢来吧，不着急。</p>
-<p>以前没有认真看markdown，只是能把每次的东西更新到tower上就满足了。现在还是认真看看markdown吧，毕竟写就要认真写。</p>
-<blockquote>
-<ul>
-<li>p.s. 附上一个大坑，也提醒一下我自己<br><strong>一定记住冒号后面留一个空格</strong></li>
-</ul>
-</blockquote>
-
-          
+          为了搞这个博客我确实花了不少功夫，从昨天晚上12点左右就开始了，看教程啊，然后自己操作去搞。加上一些教程由于时间的问题，总是存在着一些坑要填。不过麻烦归麻烦，我也总算是在3点的时候把东西推到github上面去了。
+今天在申请免费的一级域名，免费的太难找到了，找到的又都是坑。反正这段时间域名解析什么的
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/03/15/我的第一篇博客/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
