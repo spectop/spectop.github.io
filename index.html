@@ -264,6 +264,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/19/Face-Recognition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Spectop">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/9566880?v=3&u=5aaa5ac72ef2caf60678af301b9fc3ea4e604ef9&s=400">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Spectop's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/19/Face-Recognition/" itemprop="url">Face Recognition的配置和初步使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-19T10:54:27+08:00">
+                2018-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>由于新一届的物联网大赛有关于人脸识别的部分，因此老师让我给学弟学妹讲一讲有关人脸识别的部分。因为上次刷知乎的时候看到了一个圣诞节时的微信头像自动带圣诞帽的小程序用到了这个 face_recognition 的 Python 库，上网查了一下，发现离线识别率高达99.38%，因此就打算使用这个库了。</p>
+<p>理想很丰满，现实很骨感。折腾了很长时间，不由得感叹，这个库是真 TMD 难配。</p>
+<p>以下就是记录的一些过程吧！</p>
+<hr>
+<h1 id="配置和安装"><a href="#配置和安装" class="headerlink" title="配置和安装"></a>配置和安装</h1><p>需要的诸如 numpy、opencv 等的机器学习的常用库就不写了，这些不难，而且我早已配过了。重点是安装 dlib.</p>
+<p>本次的配置基本参考<a href="https://github.com/ageitgey/face_recognition" target="_blank" rel="noopener">face_recognition的 readme</a></p>
+<h2 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h2><ul>
+<li>Python 3.3+ or Python 2.7</li>
+<li>macOS or Linux (Windows not officially supported, but might work)</li>
+</ul>
+<p>这里我使用的环境就是 Python3.6 + macOS，（作者已经说了，Windows 环境下没有测试，而且我看了网上好像 Windows 确实各种坑，所以小伙伴们还是不要去跳坑了吧，老老实实 Linux 吧）</p>
+<h2 id="安装-dlib"><a href="#安装-dlib" class="headerlink" title="安装 dlib"></a>安装 dlib</h2><p>作者有给连接指导怎样安装 dlib 的，<a href="https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf" target="_blank" rel="noopener">How to install dlib from source on macOS or Ubuntu</a>，但是这个网址被墙了，可以科学上网的同学就直接去看。</p>
+<p>为了帮助无法科学上网的同学，我把 dlib 安装指导 copy 了过来：</p>
+<blockquote>
+<p>为什么我开了ss 也打不开啊，这里挖坑，等会儿填</p>
+</blockquote>
+<h2 id="安装-face-recognition"><a href="#安装-face-recognition" class="headerlink" title="安装 face_recognition"></a>安装 face_recognition</h2><p>这个就没什么好说的了，<code>pip3 install face_recognition</code></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>如果你进入 Python3，可以成功 <code>import dlib</code> ，就表示你的 dlib 成功安装了<br>如果你在 terminal 内输入 <code>face_</code> ，按 tab 键，能够自动补全 face_recognition 说明 face_recognition 已经成功安装了</p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p>作者提供了一个 virtualBox 的 Ubuntu 镜像，内部已经配置好了一切的环境，如果有需要可以<a href="https://medium.com/@ageitgey/try-deep-learning-in-python-now-with-a-fully-pre-configured-vm-1d97d4c3e9b" target="_blank" rel="noopener">点这里</a>下载</p>
+<h1 id="直接使用"><a href="#直接使用" class="headerlink" title="直接使用"></a>直接使用</h1><p>前面在 terminal 里面，face_recognition 就已经可以直接使用了，具体的做法是：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">face_recognition</span> 已知人物照片的目录 需要识别的照片目录</span><br></pre></td></tr></table></figure>
+<p>还可以加入一些参数，比如容忍度 <code>--tolerance</code> ，越小的容忍度，则识别时就越严格</p>
+<p>加入 <code>--show-distance true</code> 可以显示两个人脸的差距，用于调整容忍度</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>前面的是直接使用 <code>face_recognition</code> 这个命令的，当然也可以在 Python 里面 import 这个库，做其他的处理</p>
+<p>我在使用库的时候遇到了 <code>No module named &#39;face_recognition&#39;</code> 的问题，如果你也遇到了这个问题，并且你确定你在输入 <code>pip3 list</code> 后，face_recognition 这个库确实已经安装完成了。那么你可以在代码中加入下面两句以引用 face_recognition</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">"/usr/local/lib/python3.6/site-packages/"</span>)</span><br></pre></td></tr></table></figure>
+<p>在添加了正确的路径之后，就可以正确的 import 这个包了（每个人的 site-packages 的位置不一定一样）</p>
+<h2 id="面部定位"><a href="#面部定位" class="headerlink" title="面部定位"></a>面部定位</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">image = face_recognition.load_image_file(<span class="string">"./pic/obm2.jpg"</span>)</span><br><span class="line">face_locations = face_recognition.face_locations(image)</span><br><span class="line">print(face_locations)</span><br></pre></td></tr></table></figure>
+<p>首先使用 load_image_file 函数将需要识别的图片添加进去，再调用 face_locations 函数就可以返回面部的坐标，如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="number">1268</span>, <span class="number">2884</span>, <span class="number">1423</span>, <span class="number">2729</span>), (<span class="number">1062</span>, <span class="number">2248</span>, <span class="number">1216</span>, <span class="number">2093</span>), (<span class="number">1142</span>, <span class="number">2575</span>, <span class="number">1271</span>, <span class="number">2446</span>), (<span class="number">1200</span>, <span class="number">1543</span>, <span class="number">1329</span>, <span class="number">1414</span>), (<span class="number">1295</span>, <span class="number">3111</span>, <span class="number">1481</span>, <span class="number">2925</span>), (<span class="number">1062</span>, <span class="number">2764</span>, <span class="number">1216</span>, <span class="number">2609</span>), (<span class="number">1027</span>, <span class="number">3482</span>, <span class="number">1212</span>, <span class="number">3296</span>), (<span class="number">1013</span>, <span class="number">1199</span>, <span class="number">1142</span>, <span class="number">1070</span>), (<span class="number">1148</span>, <span class="number">1336</span>, <span class="number">1302</span>, <span class="number">1182</span>), (<span class="number">1182</span>, <span class="number">1044</span>, <span class="number">1337</span>, <span class="number">889</span>), (<span class="number">956</span>, <span class="number">1629</span>, <span class="number">1085</span>, <span class="number">1500</span>), (<span class="number">1212</span>, <span class="number">778</span>, <span class="number">1398</span>, <span class="number">593</span>), (<span class="number">1062</span>, <span class="number">1869</span>, <span class="number">1216</span>, <span class="number">1715</span>), (<span class="number">956</span>, <span class="number">2532</span>, <span class="number">1085</span>, <span class="number">2403</span>), (<span class="number">1406</span>, <span class="number">3510</span>, <span class="number">1628</span>, <span class="number">3287</span>)]</span><br></pre></td></tr></table></figure>
+<p>其中，每一个脸部位置坐标是由4个数字的元组组成的，其分别为 $ x_1 , y_1 , x_2 , y_2 $ ，这两个点分别是确定脸部位置的两角，可以用 OpenCV 加载图片，并且使用切片操作截取脸部</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">index = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> (x1, y1, x2, y2) <span class="keyword">in</span> face_locations :</span><br><span class="line">    print(x1, x2, y1, y2)</span><br><span class="line">    f = img[x1 : x2, y2 : y1]</span><br><span class="line">    index = index + <span class="number">1</span></span><br><span class="line">    cv2.imwrite(<span class="string">"hezhao_"</span> + str(index) + <span class="string">".jpg"</span>, f)</span><br></pre></td></tr></table></figure>
+<h2 id="面部比较"><a href="#面部比较" class="headerlink" title="面部比较"></a>面部比较</h2><ul>
+<li>加载已知的头像</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dt_image = face_recognition.load_image_file(<span class="string">"./head/dt_1.jpg"</span>)</span><br><span class="line">sll_image = face_recognition.load_image_file(<span class="string">"./head/sll_1.jpg"</span>)</span><br><span class="line">obm_image = face_recognition.load_image_file(<span class="string">"./head/obm_1.jpg"</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>加载待识别的头像</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unknown_image_1 = face_recognition.load_image_file(<span class="string">"./unknow_head/unknow_1.jpg"</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编码</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dt_encoding = face_recognition.face_encodings(dt_image)[<span class="number">0</span>]</span><br><span class="line">sll_encoding = face_recognition.face_encodings(sll_image)[<span class="number">0</span>]</span><br><span class="line">obm_encoding = face_recognition.face_encodings(obm_image)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">unknown_encoding = face_recognition.face_encodings(unknown_image_1)[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>输入结果</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">results = face_recognition.compare_faces([dt_encoding, sll_encoding, obm_encoding], unknown_encoding[i])</span><br></pre></td></tr></table></figure>
+<p>输出的结果是一个3个的 list，内部的值分别是 true 或者 false 表示是不是对应的人</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/11/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1762,7 +1952,7 @@ w:    7    7    7    4    4    4    4    4    2    2    5    5
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1784,7 +1974,7 @@ w:    7    7    7    4    4    4    4    4    2    2    5    5
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
