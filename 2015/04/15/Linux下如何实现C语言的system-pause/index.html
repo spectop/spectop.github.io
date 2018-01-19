@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Linux,C/C++," />
+  <meta name="keywords" content="C/C++,Linux," />
 
 
 
@@ -82,14 +82,14 @@
 
 
 <meta name="description" content="getch() ?  不是标准库中的函数，在Linux中一般情况无法使用   getchar() + printf(“\b”) ?  貌似使用getchar()读入，再输出一个退格符将原来回显的字符删除应该是可以的，但是在实际试了一下发现根本不行。。。  原因：终端驱动器确实会读一个字符，但是他的输入只有到’\n’ 或 EOF 才会结束，所以如果不输入回车就不会实际执行getchar().">
-<meta name="keywords" content="Linux,C&#x2F;C++">
+<meta name="keywords" content="C&#x2F;C++,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux下如何实现C语言的system(&quot;pause&quot;)">
 <meta property="og:url" content="http://yoursite.com/2015/04/15/Linux下如何实现C语言的system-pause/index.html">
 <meta property="og:site_name" content="Spectop&#39;s">
 <meta property="og:description" content="getch() ?  不是标准库中的函数，在Linux中一般情况无法使用   getchar() + printf(“\b”) ?  貌似使用getchar()读入，再输出一个退格符将原来回显的字符删除应该是可以的，但是在实际试了一下发现根本不行。。。  原因：终端驱动器确实会读一个字符，但是他的输入只有到’\n’ 或 EOF 才会结束，所以如果不输入回车就不会实际执行getchar().">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-17T08:46:35.899Z">
+<meta property="og:updated_time" content="2018-01-19T04:19:57.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下如何实现C语言的system(&quot;pause&quot;)">
 <meta name="twitter:description" content="getch() ?  不是标准库中的函数，在Linux中一般情况无法使用   getchar() + printf(“\b”) ?  貌似使用getchar()读入，再输出一个退格符将原来回显的字符删除应该是可以的，但是在实际试了一下发现根本不行。。。  原因：终端驱动器确实会读一个字符，但是他的输入只有到’\n’ 或 EOF 才会结束，所以如果不输入回车就不会实际执行getchar().">
@@ -368,8 +368,10 @@
 </li>
 </ul>
 </li>
-<li><p><strong><em>解决办法</em></strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">system_pause</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	getchar();</span><br><span class="line"> 	<span class="built_in">puts</span>(<span class="string">"Press any key to continue..."</span>);</span><br><span class="line"> 	system(<span class="string">"stty raw"</span>);</span><br><span class="line"> 	getchar();</span><br><span class="line">	system(<span class="string">"stty cooked"</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\b"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</ul>
+<a id="more"></a>
+<ul>
+<li><strong><em>解决办法</em></strong><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">system_pause</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	getchar();</span><br><span class="line"> 	<span class="built_in">puts</span>(<span class="string">"Press any key to continue..."</span>);</span><br><span class="line"> 	system(<span class="string">"stty raw"</span>);</span><br><span class="line"> 	getchar();</span><br><span class="line">	system(<span class="string">"stty cooked"</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\b"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>这段代码也是我在网上找到的，我的理解是：</p>
@@ -400,9 +402,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
-          
             <a href="/tags/C-C/" rel="tag"># C/C++</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
