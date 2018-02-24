@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="机器学习,Python,人脸识别," />
+  <meta name="keywords" content="机器学习,Python,人脸识别,情感识别," />
 
 
 
@@ -81,20 +81,25 @@
 
 
 
-<meta name="description" content="在做表情识别的时候，突然在《机器学习——算法原理与编程实践》一书中看到了人脸检测的部分。书中使用的是 OpenCV 自带的 Haar 特征级联表作为训练集，标记人脸的。这种方法我之前也在网上看到过，因为没有成功（现在看来应该是使用了错误的表造成的）所以使用了 face_recognition 的库来进行的。 现在既然成功完成了这种方法，那自然也要用起来。">
-<meta name="keywords" content="机器学习,Python,人脸识别">
+<meta name="description" content="我在做表情识别的时候，使用的是 CK/CK+ 的数据集，然而令人难受的是，我一直不知道如何去标记人脸特征点。因为数据集里面有标记好的 Landmarks，都放在里面了。所以我训练是直接用这个数据的，测试集其实也是从里面随机抽取的。 然而昨天在找资料的时候，我很敏感的发现了68这个数字。天哪，我怎么会忘记，这个就是 CK/CK+ 数据集里面标记点的个数啊！ 于是，我开始了 dlib 的调试。">
+<meta name="keywords" content="机器学习,Python,人脸识别,情感识别">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 OpenCV 标记人脸">
-<meta property="og:url" content="http://yoursite.com/2018/02/24/Face-recog-with-opencv/index.html">
+<meta property="og:title" content="使用 dlib 对人脸特征点标记">
+<meta property="og:url" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/index.html">
 <meta property="og:site_name" content="Spectop&#39;s">
-<meta property="og:description" content="在做表情识别的时候，突然在《机器学习——算法原理与编程实践》一书中看到了人脸检测的部分。书中使用的是 OpenCV 自带的 Haar 特征级联表作为训练集，标记人脸的。这种方法我之前也在网上看到过，因为没有成功（现在看来应该是使用了错误的表造成的）所以使用了 face_recognition 的库来进行的。 现在既然成功完成了这种方法，那自然也要用起来。">
+<meta property="og:description" content="我在做表情识别的时候，使用的是 CK/CK+ 的数据集，然而令人难受的是，我一直不知道如何去标记人脸特征点。因为数据集里面有标记好的 Landmarks，都放在里面了。所以我训练是直接用这个数据的，测试集其实也是从里面随机抽取的。 然而昨天在找资料的时候，我很敏感的发现了68这个数字。天哪，我怎么会忘记，这个就是 CK/CK+ 数据集里面标记点的个数啊！ 于是，我开始了 dlib 的调试。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/02/24/Face-recog-with-opencv/sample.jpg">
-<meta property="og:updated_time" content="2018-02-24T03:41:36.261Z">
+<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/tzd_samp.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/lyf2.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/landmark.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/glassesssss_obm.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/glassesssss_dt1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/glassesssss_ssl1.jpg">
+<meta property="og:updated_time" content="2018-02-24T06:19:12.051Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 OpenCV 标记人脸">
-<meta name="twitter:description" content="在做表情识别的时候，突然在《机器学习——算法原理与编程实践》一书中看到了人脸检测的部分。书中使用的是 OpenCV 自带的 Haar 特征级联表作为训练集，标记人脸的。这种方法我之前也在网上看到过，因为没有成功（现在看来应该是使用了错误的表造成的）所以使用了 face_recognition 的库来进行的。 现在既然成功完成了这种方法，那自然也要用起来。">
-<meta name="twitter:image" content="http://yoursite.com/2018/02/24/Face-recog-with-opencv/sample.jpg">
+<meta name="twitter:title" content="使用 dlib 对人脸特征点标记">
+<meta name="twitter:description" content="我在做表情识别的时候，使用的是 CK/CK+ 的数据集，然而令人难受的是，我一直不知道如何去标记人脸特征点。因为数据集里面有标记好的 Landmarks，都放在里面了。所以我训练是直接用这个数据的，测试集其实也是从里面随机抽取的。 然而昨天在找资料的时候，我很敏感的发现了68这个数字。天哪，我怎么会忘记，这个就是 CK/CK+ 数据集里面标记点的个数啊！ 于是，我开始了 dlib 的调试。">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/tzd_samp.png">
 
 
 
@@ -124,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/24/Face-recog-with-opencv/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/"/>
 
 
 
 
 
-  <title>使用 OpenCV 标记人脸 | Spectop's</title>
+  <title>使用 dlib 对人脸特征点标记 | Spectop's</title>
   
 
 
@@ -267,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/24/Face-recog-with-opencv/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Spectop">
@@ -284,7 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用 OpenCV 标记人脸</h1>
+          <h1 class="post-title" itemprop="name headline">使用 dlib 对人脸特征点标记</h1>
         
 
         <div class="post-meta">
@@ -296,7 +301,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-24T10:56:47+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-24T13:01:01+08:00">
                 2018-02-24
               </time>
             
@@ -356,20 +361,42 @@
       
 
       
-        <p>在做表情识别的时候，突然在《机器学习——算法原理与编程实践》一书中看到了人脸检测的部分。书中使用的是 OpenCV 自带的 Haar 特征级联表作为训练集，标记人脸的。这种方法我之前也在网上看到过，因为没有成功（现在看来应该是使用了错误的表造成的）所以使用了 face_recognition 的库来进行的。</p>
-<p>现在既然成功完成了这种方法，那自然也要用起来。</p>
+        <p>我在做表情识别的时候，使用的是 CK/CK+ 的数据集，然而令人难受的是，我一直不知道如何去标记人脸特征点。因为数据集里面有标记好的 Landmarks，都放在里面了。所以我训练是直接用这个数据的，测试集其实也是从里面随机抽取的。</p>
+<p>然而昨天在找资料的时候，我很敏感的发现了68这个数字。天哪，我怎么会忘记，这个就是 CK/CK+ 数据集里面标记点的个数啊！</p>
+<p>于是，我开始了 dlib 的调试。</p>
 <hr>
 <a id="more"></a>
-<h1 id="前期配置"><a href="#前期配置" class="headerlink" title="前期配置"></a>前期配置</h1><p>这一次的表情识别的前期工作都是用 Python2.7 做的，因此代码也是基于 Python2.7 的。Python3 的话，应该也是大同小异的。</p>
-<p>建议使用 anaconda 配置 Python 虚拟环境，使用起来也很方便。</p>
-<p>需要使用的<a href="https://github.com/opencv/opencv/tree/master/data" target="_blank" rel="noopener">特征级联表</a>，书上使用 haarcascade_frontalface_alt_tree.xml 和 lbpcascade_frontalface.xml，我将使用后者。</p>
-<p>上述两个文件分别在链接位置 haarcascades 和 lbpcascades 目录下。</p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>话不多说，还是：</p>
+<p>macOS + anaconda + Python2.7</p>
+<h2 id="dlib-的安装："><a href="#dlib-的安装：" class="headerlink" title="dlib 的安装："></a>dlib 的安装：</h2><p>对于 Mac 用户，参见<a href="https://www.jianshu.com/p/3e0b7d1ddc56" target="_blank" rel="noopener">这一篇</a></p>
+<p>其实我根本就是忘记了我在安装 face_recognition 时曾经在 Python3 的环境下安装过 dlib 了。<a href="https://spectop.github.io/2018/01/19/Face-Recognition/" target="_blank" rel="noopener">看这里</a></p>
+<h2 id="特征检测器"><a href="#特征检测器" class="headerlink" title="特征检测器"></a>特征检测器</h2><p>需要下载特征<a href="http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2" target="_blank" rel="noopener">检测器</a>，当然你也可以自己训练 (/滑稽)</p>
+<p>下载后可以解压出一个 dat 文件，我们需要的就是这个。</p>
 <hr>
-<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">face_cascade = cv2.CascadeClassifier(<span class="string">'./lbpcascade_frontalface.xml'</span>)</span><br><span class="line"><span class="comment"># 参数说明：</span></span><br><span class="line"><span class="comment"># gray：传入的图片，一般使用灰度图</span></span><br><span class="line"><span class="comment"># 1.2： scaleFactor--表示在前后两次相继的扫描中，搜索窗口的比例系数。默认为1.1：即每次搜索窗口依次扩大10%</span></span><br><span class="line"><span class="comment"># 3：   minNeighbors--表示构成检测目标的相邻矩形的最小个数(默认为3个)。</span></span><br><span class="line"><span class="comment">#       如果组成检测目标的小矩形的个数和小于 min_neighbors - 1 都会被排除。</span></span><br><span class="line"><span class="comment">#       如果min_neighbors 为 0, 则函数不做任何操作就返回所有的被检候选矩形框，</span></span><br><span class="line"><span class="comment">#       这种设定值一般用在用户自定义对检测结果的组合程序上</span></span><br><span class="line">faces = face_cascade.detectMultiScale(gray, <span class="number">1.2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">face_cascade = cv2.CascadeClassifier(<span class="string">'./lbpcascade_frontalface.xml'</span>)</span><br><span class="line"></span><br><span class="line">img = cv2.imread(<span class="string">'./test.jpg'</span>)</span><br><span class="line">gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">faces = face_cascade.detectMultiScale(gray, <span class="number">1.2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (x, y, w, h) <span class="keyword">in</span> faces:</span><br><span class="line">    img2 = cv2.rectangle(img, (x, y), (x + w, y + h), (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">1</span>)</span><br><span class="line">    cv2.imwrite(<span class="string">'./sample.jpg'</span>,img2)</span><br><span class="line">    <span class="comment"># 下面是面部区域的灰度图和原图，可以使用 imwrite 保存为文件</span></span><br><span class="line">    roi_gray = gray[y: y + h, x: x + w]</span><br><span class="line">    roi_color = img[y: y + h, x: x + w]</span><br><span class="line"></span><br><span class="line">cv2.imshow(<span class="string">'img'</span>, img)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="/2018/02/24/Face-recog-with-opencv/sample.jpg" alt="sample"></p>
+<h1 id="检测人脸"><a href="#检测人脸" class="headerlink" title="检测人脸"></a>检测人脸</h1><p>之前就说过，dlib 也是可以检测人脸的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">detector = dlib.get_frontal_face_detector()</span><br><span class="line">faces = detector(img, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>这样，faces 里面就存储了所有脸部区域的范围。</p>
+<p>值得注意的是，faces[i] 是第 i 张脸，使用<code>.top()    .bottom()    .left()    .right()</code>四个函数得到具体的值</p>
 <hr>
-<p>P.S. 在使用 dlib 做面部特征点标记的时候，发现 dlib 也有 face_detector，有时间我会在下一篇文章中介绍一下。</p>
+<h1 id="特征点标记"><a href="#特征点标记" class="headerlink" title="特征点标记"></a>特征点标记</h1><p>加载刚刚下载的文件来标记特征点。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">landmark_predictor = dlib.shape_predictor(<span class="string">'./shape_predictor_68_face_landmarks.dat'</span>)</span><br><span class="line">shape = landmark_predictor(img,face_area)</span><br></pre></td></tr></table></figure>
+<p>其中，shape 就保存了特征点的信息。</p>
+<p>为了得到特征点的坐标，需要使用<code>.part()</code>函数，如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x[i] = shape.part(i).x</span><br><span class="line">y[i] = shape.part(i).y</span><br></pre></td></tr></table></figure>
+<p>特征点是有顺序的，如下图：</p>
+<p><img src="/2018/02/24/face-landmark-with-dlib68/tzd_samp.png" alt=""></p>
+<p>68个特征点的位置如下：</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    IdxRange jaw;       // [<span class="number">0</span> , <span class="number">16</span>]</span><br><span class="line">    IdxRange rightBrow; // [<span class="number">17</span>, <span class="number">21</span>]</span><br><span class="line">    IdxRange leftBrow;  // [<span class="number">22</span>, <span class="number">26</span>]</span><br><span class="line">    IdxRange nose;      // [<span class="number">27</span>, <span class="number">35</span>]</span><br><span class="line">    IdxRange rightEye;  // [<span class="number">36</span>, <span class="number">41</span>]</span><br><span class="line">    IdxRange leftEye;   // [<span class="number">42</span>, <span class="number">47</span>]</span><br><span class="line">    IdxRange mouth;     // [<span class="number">48</span>, <span class="number">59</span>]</span><br><span class="line">    IdxRange mouth2;    // [<span class="number">60</span>, <span class="number">67</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> dlib</span><br><span class="line"></span><br><span class="line">detector = dlib.get_frontal_face_detector()</span><br><span class="line">landmark_predictor = dlib.shape_predictor(<span class="string">'./shape_predictor_68_face_landmarks.dat'</span>)</span><br><span class="line">img = cv2.imread(<span class="string">'./lyf2.png'</span>)</span><br><span class="line">faces = detector(img, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (len(faces) &gt; <span class="number">0</span>):</span><br><span class="line">    <span class="keyword">for</span> k,d <span class="keyword">in</span> enumerate(faces):</span><br><span class="line">        <span class="comment"># cv2.rectangle(img,(d.left(),d.top()),(d.right(),d.bottom()),(255,255,255))</span></span><br><span class="line">        shape = landmark_predictor(img,d)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">68</span>):</span><br><span class="line">            img2 = cv2.circle(img, (shape.part(i).x, shape.part(i).y),<span class="number">5</span>,(<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span>), <span class="number">-1</span>, <span class="number">8</span>)</span><br><span class="line">            img2 = cv2.putText(img,str(i),(shape.part(i).x,shape.part(i).y),cv2.FONT_HERSHEY_SIMPLEX,<span class="number">0.5</span>,(<span class="number">255</span>,<span class="number">2555</span>,<span class="number">255</span>))</span><br><span class="line">cv2.imshow(<span class="string">'Frame'</span>,img)</span><br><span class="line">cv2.imwrite(<span class="string">'./landmark.jpg'</span>, img2)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<table><tr><br><td><img src="/2018/02/24/face-landmark-with-dlib68/lyf2.png"></td><br><td><img src="/2018/02/24/face-landmark-with-dlib68/landmark.jpg"></td><br></tr></table>
+
+<hr>
+<p><strong>蛤</strong>，你问 Landmark 还可以用来干嘛？</p>
+<p>当然是让美帝也感受一下<strong>膜法</strong>的力量！！！</p>
+<table><tr><br><td><img src="/2018/02/24/face-landmark-with-dlib68/glassesssss_obm.jpg"></td><br><td><img src="/2018/02/24/face-landmark-with-dlib68/glassesssss_dt1.jpg"></td><br><td><img src="/2018/02/24/face-landmark-with-dlib68/glassesssss_ssl1.jpg"></td><br></tr></table>
+
 
       
     </div>
@@ -393,6 +420,8 @@
           
             <a href="/tags/人脸识别/" rel="tag"># 人脸识别</a>
           
+            <a href="/tags/情感识别/" rel="tag"># 情感识别</a>
+          
         </div>
       
 
@@ -404,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/19/Face-Recognition/" rel="next" title="Face Recognition的配置和初步使用">
-                <i class="fa fa-chevron-left"></i> Face Recognition的配置和初步使用
+              <a href="/2018/02/24/Face-recog-with-opencv/" rel="next" title="使用 OpenCV 标记人脸">
+                <i class="fa fa-chevron-left"></i> 使用 OpenCV 标记人脸
               </a>
             
           </div>
@@ -413,10 +442,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/24/face-landmark-with-dlib68/" rel="prev" title="使用 dlib 对人脸特征点标记">
-                使用 dlib 对人脸特征点标记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +594,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前期配置"><span class="nav-number">1.</span> <span class="nav-text">前期配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关键代码"><span class="nav-number">2.1.</span> <span class="nav-text">关键代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码"><span class="nav-number">2.2.</span> <span class="nav-text">完整代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果图"><span class="nav-number">2.3.</span> <span class="nav-text">效果图</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">1.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dlib-的安装："><span class="nav-number">1.1.</span> <span class="nav-text">dlib 的安装：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征检测器"><span class="nav-number">1.2.</span> <span class="nav-text">特征检测器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测人脸"><span class="nav-number">2.</span> <span class="nav-text">检测人脸</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征点标记"><span class="nav-number">3.</span> <span class="nav-text">特征点标记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实战"><span class="nav-number">4.</span> <span class="nav-text">实战</span></a></li></ol></div>
             
 
           </div>
