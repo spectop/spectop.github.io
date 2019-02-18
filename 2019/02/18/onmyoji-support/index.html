@@ -90,7 +90,7 @@
 <meta property="og:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 目录结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/02/18/onmyoji-support/zhzz.png">
-<meta property="og:updated_time" content="2019-02-18T15:45:08.783Z">
+<meta property="og:updated_time" content="2019-02-18T15:52:31.404Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="痒痒鼠自动刷妖气封印">
 <meta name="twitter:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 目录结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
@@ -378,15 +378,44 @@
 <li><p>times : 需要刷的次数</p>
 </li>
 <li><p>code : 0~7 的数字，内容如下：</p>
-<table><br><tbody><br><tr><br><td style="width: 81px;" rowspan="2">&nbsp;</td><br><td style="width: 30px;" colspan="2">&nbsp; 接受房主</td><br><td style="width: 30px;" colspan="2">不当房主&nbsp;&nbsp;</td><br></tr><br><tr><br><td style="width: 15px;">有活动</td><br><td style="width: 15px;">无活动</td><br><td style="width: 15px;">有活动</td><br><td style="width: 15px;">无活动</td><br></tr><br><tr><br><td style="width: 81px;">&nbsp;接受邀请</td><br><td style="width: 15px;">&nbsp;7</td><br><td style="width: 15px;">6&nbsp;</td><br><td style="width: 15px;">5&nbsp;</td><br><td style="width: 15px;">4&nbsp;</td><br></tr><br><tr><br><td style="width: 81px;">&nbsp;不接受邀请</td><br><td style="width: 15px;">&nbsp;3</td><br><td style="width: 15px;">2&nbsp;</td><br><td style="width: 15px;">1&nbsp;</td><br><td style="width: 15px;">0&nbsp;</td><br></tr><br></tbody><br></table>
 
+     <table>
+     <tbody>
+     <tr>
+     <td style="width: 81px;" rowspan="2">&nbsp;</td>
+     <td style="width: 30px;" colspan="2">&nbsp; 接受房主</td>
+     <td style="width: 30px;" colspan="2">不当房主&nbsp;&nbsp;</td>
+     </tr>
+     <tr>
+     <td style="width: 15px;">有活动</td>
+     <td style="width: 15px;">无活动</td>
+     <td style="width: 15px;">有活动</td>
+     <td style="width: 15px;">无活动</td>
+     </tr>
+     <tr>
+     <td style="width: 81px;">&nbsp;接受邀请</td>
+     <td style="width: 15px;">&nbsp;7</td>
+     <td style="width: 15px;">6&nbsp;</td>
+     <td style="width: 15px;">5&nbsp;</td>
+     <td style="width: 15px;">4&nbsp;</td>
+     </tr>
+     <tr>
+     <td style="width: 81px;">&nbsp;不接受邀请</td>
+     <td style="width: 15px;">&nbsp;3</td>
+     <td style="width: 15px;">2&nbsp;</td>
+     <td style="width: 15px;">1&nbsp;</td>
+     <td style="width: 15px;">0&nbsp;</td>
+     </tr>
+     </tbody>
+     </table>
+     
 </li>
 </ul>
-<p>​    （其中的活动指的是痒痒鼠经常会有的一些鬼王活动，使得原本的「妖气封印」按钮下移一格）</p>
-<p>eg. <code>python yysgo.py zhzz gsh 100 6</code> 表示刷100次鬼使黑，接受悬赏封印邀请，若原房主退出则接受房主，没有特殊活动</p>
-<h1 id="程序内容"><a href="#程序内容" class="headerlink" title="程序内容"></a>程序内容</h1></li>
+</li>
 </ol>
-
+<p>   ​    （其中的活动指的是痒痒鼠经常会有的一些鬼王活动，使得原本的「妖气封印」按钮下移一格）</p>
+<p>   eg. <code>python yysgo.py zhzz gsh 100 6</code> 表示刷100次鬼使黑，接受悬赏封印邀请，若原房主退出则接受房主，没有特殊活动</p>
+<h1 id="程序内容"><a href="#程序内容" class="headerlink" title="程序内容"></a>程序内容</h1>
       
     </div>
     
