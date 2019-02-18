@@ -81,18 +81,20 @@
 
 
 
-<meta name="description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 程序结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
+<meta name="description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 目录结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="痒痒鼠自动刷妖气封印">
 <meta property="og:url" content="http://yoursite.com/2019/02/18/onmyoji-support/index.html">
 <meta property="og:site_name" content="Spectop&#39;s">
-<meta property="og:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 程序结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
+<meta property="og:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 目录结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-18T14:33:20.217Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/onmyoji-support/zhzz.png">
+<meta property="og:updated_time" content="2019-02-18T15:45:08.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="痒痒鼠自动刷妖气封印">
-<meta name="twitter:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 程序结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
+<meta name="twitter:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 目录结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/18/onmyoji-support/zhzz.png">
 
 
 
@@ -355,7 +357,7 @@
 
       
         <p>之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 <a href="https://github.com/spectop/spectop_others/tree/master/python/yysgo" target="_blank" rel="noopener">GitHub</a> 上了。这里记录一下整个代码的结构和思路备忘。</p>
-<h1 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h1><p>整个程序包含3个 Python 文件和两个目录，如下：</p>
+<h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><p>整个程序包含3个 Python 文件和两个目录，如下：</p>
 <ul>
 <li>pic  :  用于放置一些用来确定场景进行比较的图片</li>
 <li>usr  :  用于放置用户名的截图</li>
@@ -363,6 +365,27 @@
 <li>order.py  :  定义了按钮位置、尺寸大小等信息；每个副本的操作流程在此</li>
 <li>yysgo.py  :  程序入口</li>
 </ul>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><ol>
+<li><p>在 usr 目录下添加一张游戏名称的截图（部分截图即可，需要 png 格式）。如下图 zhzz.png（我的游戏名称是“最后之作”） ：</p>
+<p><img src="/2019/02/18/onmyoji-support/zhzz.png" alt="zhzz"></p>
+</li>
+<li><p>在命令行输入 <code>python yysgo.py user_name what_to_do times code</code> </p>
+<ul>
+<li><p>user_name : 你放在 usr 目录下的截图文件名，不包含格式后缀，如上面的应该是 zhzz</p>
+</li>
+<li><p>What_to_do : 需要刷的副本，使用拼音首字母。如鬼使黑的话就是 gsh</p>
+</li>
+<li><p>times : 需要刷的次数</p>
+</li>
+<li><p>code : 0~7 的数字，内容如下：</p>
+<table><br><tbody><br><tr><br><td style="width: 81px;" rowspan="2">&nbsp;</td><br><td style="width: 30px;" colspan="2">&nbsp; 接受房主</td><br><td style="width: 30px;" colspan="2">不当房主&nbsp;&nbsp;</td><br></tr><br><tr><br><td style="width: 15px;">有活动</td><br><td style="width: 15px;">无活动</td><br><td style="width: 15px;">有活动</td><br><td style="width: 15px;">无活动</td><br></tr><br><tr><br><td style="width: 81px;">&nbsp;接受邀请</td><br><td style="width: 15px;">&nbsp;7</td><br><td style="width: 15px;">6&nbsp;</td><br><td style="width: 15px;">5&nbsp;</td><br><td style="width: 15px;">4&nbsp;</td><br></tr><br><tr><br><td style="width: 81px;">&nbsp;不接受邀请</td><br><td style="width: 15px;">&nbsp;3</td><br><td style="width: 15px;">2&nbsp;</td><br><td style="width: 15px;">1&nbsp;</td><br><td style="width: 15px;">0&nbsp;</td><br></tr><br></tbody><br></table>
+
+</li>
+</ul>
+<p>​    （其中的活动指的是痒痒鼠经常会有的一些鬼王活动，使得原本的「妖气封印」按钮下移一格）</p>
+<p>eg. <code>python yysgo.py zhzz gsh 100 6</code> 表示刷100次鬼使黑，接受悬赏封印邀请，若原房主退出则接受房主，没有特殊活动</p>
+<h1 id="程序内容"><a href="#程序内容" class="headerlink" title="程序内容"></a>程序内容</h1></li>
+</ol>
 
       
     </div>
@@ -554,7 +577,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#程序结构"><span class="nav-number">1.</span> <span class="nav-text">程序结构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录结构"><span class="nav-number">1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序内容"><span class="nav-number">3.</span> <span class="nav-text">程序内容</span></a></li></ol></div>
             
 
           </div>
