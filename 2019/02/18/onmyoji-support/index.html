@@ -90,7 +90,7 @@
 <meta property="og:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 目录结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/02/18/onmyoji-support/zhzz.png">
-<meta property="og:updated_time" content="2019-02-18T15:52:31.404Z">
+<meta property="og:updated_time" content="2019-02-19T05:30:50.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="痒痒鼠自动刷妖气封印">
 <meta name="twitter:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 目录结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
@@ -369,7 +369,10 @@
 <li><p>在 usr 目录下添加一张游戏名称的截图（部分截图即可，需要 png 格式）。如下图 zhzz.png（我的游戏名称是“最后之作”） ：</p>
 <p><img src="/2019/02/18/onmyoji-support/zhzz.png" alt="zhzz"></p>
 </li>
-<li><p>在命令行输入 <code>python yysgo.py user_name what_to_do times code</code> </p>
+<li><p>在命令行输入</p>
+<p><code>python yysgo.py user_name what_to_do times code</code> </p>
+</li>
+</ol>
 <ul>
 <li><p>user_name : 你放在 usr 目录下的截图文件名，不包含格式后缀，如上面的应该是 zhzz</p>
 </li>
@@ -411,11 +414,89 @@
      
 </li>
 </ul>
-</li>
-</ol>
 <p>   ​    （其中的活动指的是痒痒鼠经常会有的一些鬼王活动，使得原本的「妖气封印」按钮下移一格）</p>
 <p>   eg. <code>python yysgo.py zhzz gsh 100 6</code> 表示刷100次鬼使黑，接受悬赏封印邀请，若原房主退出则接受房主，没有特殊活动</p>
-<h1 id="程序内容"><a href="#程序内容" class="headerlink" title="程序内容"></a>程序内容</h1>
+<h1 id="程序内容"><a href="#程序内容" class="headerlink" title="程序内容"></a>程序内容</h1><p>整个程序的原理比较简单，就是模拟平时手动刷副本时的操作而已。</p>
+<div id="flowchart-0" class="flow-chart"></div>
+
+<h2 id="baseFunction-py"><a href="#baseFunction-py" class="headerlink" title="baseFunction.py"></a>baseFunction.py</h2><p>baseFunction.py 内定义了一些基本的鼠标操作，如：</p>
+<ul>
+<li><strong>点击</strong> ：click(area, delay=0.5)<ul>
+<li>area ：点击区域</li>
+<li>delay ：延时最大值（后面的 delay 皆是如此）</li>
+</ul>
+</li>
+<li><strong>拖拽</strong> ：drag(begin_area, end_area, delay=0.5, duraction=0.5)<ul>
+<li>begin_area ：开始区域</li>
+<li>end_eare ：结束区域</li>
+<li>duraction ：拖拽最大时长</li>
+</ul>
+</li>
+<li><strong>寻找图片</strong> ：find_picture(file_location)，返回 T/F<ul>
+<li>file_location ：图片文件文字</li>
+</ul>
+</li>
+</ul>
+<p>以及基于这些操作的一些其他操作，如：</p>
+<ul>
+<li><strong>滚动</strong> ：roll(block_nums, area, block_height, eps=2, delay=0.5, duraction=0.5)<ul>
+<li>block_nums ：滚动格数，负数为从长往下拖拽一格，正数为从下往上</li>
+<li>area ：可以操作的列表区域</li>
+<li>block_height ：一格的高度</li>
+<li>eps ：误差</li>
+</ul>
+</li>
+<li><strong>检测邀请</strong> ：check_invatation(operation, pic, button_accept, button_decline)<ul>
+<li>operation ：收到悬赏封印邀请的操作</li>
+<li>pic ：悬赏封印邀请的截图位置</li>
+<li>button_accept ：「接受」按钮区域</li>
+<li>button_decline ：「拒接」按钮区域</li>
+</ul>
+</li>
+<li><strong>检测房主</strong> ：check_roomowner(pic)，返回 T/F<ul>
+<li>pic ：成为房主时的标志图片（默认使用亮起的「开始战斗」按钮的截图作为已经成为房主的依据）</li>
+</ul>
+</li>
+<li><strong>检测等待状态</strong> ：check_searching(pic, button)，无返回值，若不在匹配中，则点击「开始匹配」继续<ul>
+<li>pic ：正在匹配的标志图片（默认使用亮起的「取消匹配」按钮的截图作为正在匹配中的依据）</li>
+</ul>
+</li>
+<li><strong>等待</strong> ：waiting(symbol, invatation_pic, invatation_operation, roomowner_pic, searching_pic, button_set)<ul>
+<li>symbol ：进入战斗（「准备」按钮亮起）的标志图片</li>
+<li>*_pic ：上面三个坚持的图片位置</li>
+<li>invatation_operation ：收到悬赏封印邀请的操作</li>
+<li>button_set ：按钮的位置的 list，[button_accept, button_decline, button_search]</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意</strong> ：</p>
+<ul>
+<li>图片的检测使用最原始的逐像素比对，因此若图片大小不对也会导致无法检测，这一点有兴趣的同志可以改进一下。在自行截图时要注意游戏的某些位置是动态的，或者的动态的底层上加一层半透明图片，这会导致图片检测失效。</li>
+<li>这里与时间相关的参数都是时间的最大值，程序执行时等待的对应时间都是从0到该「最大值」的随机数，以避免防作弊检测</li>
+<li>同理，这里所有的按钮的点击还有拖拽的操作，位置都是随机的。每一个 area（或 button） 都是 [[x1, y1], [x2, y2]] 的形式</li>
+</ul>
+<h2 id="order-py"><a href="#order-py" class="headerlink" title="order.py"></a>order.py</h2><p><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 开始
+cond1=>condition: 处于主界面？
+cond2=>condition: 「准备」按钮亮起？
+cond3=>condition: 检测战斗是否完成
+cond4=>condition: 是否达到设定次数
+op1=>operation: 「组队」->「妖气封印」->「对应副本」->「自动匹配」
+op5=>operation: 「准备」
+op6=>operation: 空白处任意点击
+e=>end
+st->cond1
+cond1(yes)->op1
+cond1(no)->cond1
+op1->cond2
+cond2(yes)->op5
+cond2(no)->cond2
+op5->cond3
+cond3(yes)->op6
+cond3(no)->cond3
+op6(right)->cond4
+cond4(yes)->e
+cond4(no)->cond1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
+
       
     </div>
     
@@ -606,7 +687,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录结构"><span class="nav-number">1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序内容"><span class="nav-number">3.</span> <span class="nav-text">程序内容</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录结构"><span class="nav-number">1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序内容"><span class="nav-number">3.</span> <span class="nav-text">程序内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#baseFunction-py"><span class="nav-number">3.1.</span> <span class="nav-text">baseFunction.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#order-py"><span class="nav-number">3.2.</span> <span class="nav-text">order.py</span></a></li></ol></li></ol></div>
             
 
           </div>
