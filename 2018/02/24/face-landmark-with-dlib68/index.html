@@ -92,21 +92,21 @@
 <meta name="keywords" content="机器学习,Python,人脸识别,情感识别">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 dlib 对人脸特征点标记">
-<meta property="og:url" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/index.html">
+<meta property="og:url" content="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/index.html">
 <meta property="og:site_name" content="Spectop&#39;s">
 <meta property="og:description" content="我在做表情识别的时候，使用的是 CK/CK+ 的数据集，然而令人难受的是，我一直不知道如何去标记人脸特征点。因为数据集里面有标记好的 Landmarks，都放在里面了。所以我训练是直接用这个数据的，测试集其实也是从里面随机抽取的。 然而昨天在找资料的时候，我很敏感的发现了68这个数字。天哪，我怎么会忘记，这个就是 CK/CK+ 数据集里面标记点的个数啊！ 于是，我开始了 dlib 的调试。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/tzd_samp.png">
-<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/lyf2.png">
-<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/landmark.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/glassesssss_obm.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/glassesssss_dt1.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/glassesssss_ssl1.jpg">
+<meta property="og:image" content="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/tzd_samp.png">
+<meta property="og:image" content="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/lyf2.png">
+<meta property="og:image" content="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/landmark.jpg">
+<meta property="og:image" content="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/glassesssss_obm.jpg">
+<meta property="og:image" content="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/glassesssss_dt1.jpg">
+<meta property="og:image" content="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/glassesssss_ssl1.jpg">
 <meta property="og:updated_time" content="2018-02-24T06:28:53.478Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 dlib 对人脸特征点标记">
 <meta name="twitter:description" content="我在做表情识别的时候，使用的是 CK/CK+ 的数据集，然而令人难受的是，我一直不知道如何去标记人脸特征点。因为数据集里面有标记好的 Landmarks，都放在里面了。所以我训练是直接用这个数据的，测试集其实也是从里面随机抽取的。 然而昨天在找资料的时候，我很敏感的发现了68这个数字。天哪，我怎么会忘记，这个就是 CK/CK+ 数据集里面标记点的个数啊！ 于是，我开始了 dlib 的调试。">
-<meta name="twitter:image" content="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/tzd_samp.png">
+<meta name="twitter:image" content="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/tzd_samp.png">
 
 
 
@@ -136,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/">
+  <link rel="canonical" href="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/">
 
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/">
+    <link itemprop="mainEntityOfPage" href="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Spectop">
@@ -452,7 +452,7 @@
 <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>话不多说，还是：</p>
 <p>macOS + anaconda + Python2.7</p>
 <h2 id="dlib-的安装："><a href="#dlib-的安装：" class="headerlink" title="dlib 的安装："></a>dlib 的安装：</h2><p>对于 Mac 用户，参见<a href="https://www.jianshu.com/p/3e0b7d1ddc56" target="_blank" rel="noopener">这一篇</a></p>
-<p>其实我根本就是忘记了我在安装 face_recognition 时曾经在 Python3 的环境下安装过 dlib 了。<a href="https://spectop.github.io/2018/01/19/Face-Recognition/" target="_blank" rel="noopener">看这里</a></p>
+<p>其实我根本就是忘记了我在安装 face_recognition 时曾经在 Python3 的环境下安装过 dlib 了。<a href="https://spectop.github.io/2018/01/19/Face-Recognition/">看这里</a></p>
 <h2 id="特征检测器"><a href="#特征检测器" class="headerlink" title="特征检测器"></a>特征检测器</h2><p>需要下载特征<a href="http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2" target="_blank" rel="noopener">检测器</a>，当然你也可以自己训练 (/滑稽)</p>
 <p>下载后可以解压出一个 dat 文件，我们需要的就是这个。</p>
 <hr>
@@ -502,7 +502,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/" title="使用 dlib 对人脸特征点标记">http://yoursite.com/2018/02/24/face-landmark-with-dlib68/</a>
+    <a href="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/" title="使用 dlib 对人脸特征点标记">https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>

@@ -5,9 +5,9 @@
   <subtitle>RMGL</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://spectop.github.io/"/>
   <updated>2019-03-01T09:44:22.431Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://spectop.github.io/</id>
   
   <author>
     <name>Spectop</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>痒痒鼠自动刷妖气封印</title>
-    <link href="http://yoursite.com/2019/02/18/onmyoji-support/"/>
-    <id>http://yoursite.com/2019/02/18/onmyoji-support/</id>
+    <link href="https://spectop.github.io/2019/02/18/onmyoji-support/"/>
+    <id>https://spectop.github.io/2019/02/18/onmyoji-support/</id>
     <published>2019-02-18T14:10:07.000Z</published>
     <updated>2019-03-01T09:44:22.431Z</updated>
     
@@ -31,21 +31,21 @@
     
     </summary>
     
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+      <category term="Python" scheme="https://spectop.github.io/categories/Python/"/>
     
     
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+      <category term="Python" scheme="https://spectop.github.io/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>使用 dlib 对人脸特征点标记</title>
-    <link href="http://yoursite.com/2018/02/24/face-landmark-with-dlib68/"/>
-    <id>http://yoursite.com/2018/02/24/face-landmark-with-dlib68/</id>
+    <link href="https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/"/>
+    <id>https://spectop.github.io/2018/02/24/face-landmark-with-dlib68/</id>
     <published>2018-02-24T05:01:01.000Z</published>
     <updated>2018-02-24T06:28:53.478Z</updated>
     
-    <content type="html"><![CDATA[<p>我在做表情识别的时候，使用的是 CK/CK+ 的数据集，然而令人难受的是，我一直不知道如何去标记人脸特征点。因为数据集里面有标记好的 Landmarks，都放在里面了。所以我训练是直接用这个数据的，测试集其实也是从里面随机抽取的。</p><p>然而昨天在找资料的时候，我很敏感的发现了68这个数字。天哪，我怎么会忘记，这个就是 CK/CK+ 数据集里面标记点的个数啊！</p><p>于是，我开始了 dlib 的调试。</p><hr><a id="more"></a><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>话不多说，还是：</p><p>macOS + anaconda + Python2.7</p><h2 id="dlib-的安装："><a href="#dlib-的安装：" class="headerlink" title="dlib 的安装："></a>dlib 的安装：</h2><p>对于 Mac 用户，参见<a href="https://www.jianshu.com/p/3e0b7d1ddc56" target="_blank" rel="noopener">这一篇</a></p><p>其实我根本就是忘记了我在安装 face_recognition 时曾经在 Python3 的环境下安装过 dlib 了。<a href="https://spectop.github.io/2018/01/19/Face-Recognition/" target="_blank" rel="noopener">看这里</a></p><h2 id="特征检测器"><a href="#特征检测器" class="headerlink" title="特征检测器"></a>特征检测器</h2><p>需要下载特征<a href="http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2" target="_blank" rel="noopener">检测器</a>，当然你也可以自己训练 (/滑稽)</p><p>下载后可以解压出一个 dat 文件，我们需要的就是这个。</p><hr><h1 id="检测人脸"><a href="#检测人脸" class="headerlink" title="检测人脸"></a>检测人脸</h1><p>之前就说过，dlib 也是可以检测人脸的。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">detector = dlib.get_frontal_face_detector()</span><br><span class="line">faces = detector(img, <span class="number">1</span>)</span><br></pre></td></tr></table></figure><p>这样，faces 里面就存储了所有脸部区域的范围。</p><p>值得注意的是，faces[i] 是第 i 张脸，使用<code>.top()    .bottom()    .left()    .right()</code>四个函数得到具体的值</p><hr><h1 id="特征点标记"><a href="#特征点标记" class="headerlink" title="特征点标记"></a>特征点标记</h1><p>加载刚刚下载的文件来标记特征点。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">landmark_predictor = dlib.shape_predictor(<span class="string">'./shape_predictor_68_face_landmarks.dat'</span>)</span><br><span class="line">shape = landmark_predictor(img,face_area)</span><br></pre></td></tr></table></figure><p>其中，shape 就保存了特征点的信息。</p><p>为了得到特征点的坐标，需要使用<code>.part()</code>函数，如下:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x[i] = shape.part(i).x</span><br><span class="line">y[i] = shape.part(i).y</span><br></pre></td></tr></table></figure><p>特征点是有顺序的，如下图：</p><p><img src="/2018/02/24/face-landmark-with-dlib68/tzd_samp.png" alt=""></p><p>68个特征点的位置如下：</p><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    IdxRange jaw;       // [<span class="number">0</span> , <span class="number">16</span>]</span><br><span class="line">    IdxRange rightBrow; // [<span class="number">17</span>, <span class="number">21</span>]</span><br><span class="line">    IdxRange leftBrow;  // [<span class="number">22</span>, <span class="number">26</span>]</span><br><span class="line">    IdxRange nose;      // [<span class="number">27</span>, <span class="number">35</span>]</span><br><span class="line">    IdxRange rightEye;  // [<span class="number">36</span>, <span class="number">41</span>]</span><br><span class="line">    IdxRange leftEye;   // [<span class="number">42</span>, <span class="number">47</span>]</span><br><span class="line">    IdxRange mouth;     // [<span class="number">48</span>, <span class="number">59</span>]</span><br><span class="line">    IdxRange mouth2;    // [<span class="number">60</span>, <span class="number">67</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> dlib</span><br><span class="line"></span><br><span class="line">detector = dlib.get_frontal_face_detector()</span><br><span class="line">landmark_predictor = dlib.shape_predictor(<span class="string">'./shape_predictor_68_face_landmarks.dat'</span>)</span><br><span class="line">img = cv2.imread(<span class="string">'./lyf2.png'</span>)</span><br><span class="line">faces = detector(img, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (len(faces) &gt; <span class="number">0</span>):</span><br><span class="line">    <span class="keyword">for</span> k,d <span class="keyword">in</span> enumerate(faces):</span><br><span class="line">        <span class="comment"># cv2.rectangle(img,(d.left(),d.top()),(d.right(),d.bottom()),(255,255,255))</span></span><br><span class="line">        shape = landmark_predictor(img,d)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">68</span>):</span><br><span class="line">            img2 = cv2.circle(img, (shape.part(i).x, shape.part(i).y),<span class="number">5</span>,(<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span>), <span class="number">-1</span>, <span class="number">8</span>)</span><br><span class="line">            img2 = cv2.putText(img,str(i),(shape.part(i).x,shape.part(i).y),cv2.FONT_HERSHEY_SIMPLEX,<span class="number">0.5</span>,(<span class="number">255</span>,<span class="number">2555</span>,<span class="number">255</span>))</span><br><span class="line">cv2.imshow(<span class="string">'Frame'</span>,img)</span><br><span class="line">cv2.imwrite(<span class="string">'./landmark.jpg'</span>, img2)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br></pre></td></tr></table></figure><p>效果如下：</p><table><tr><br><td><img src="/2018/02/24/face-landmark-with-dlib68/lyf2.png"></td><br><td><img src="/2018/02/24/face-landmark-with-dlib68/landmark.jpg"></td><br></tr></table><hr><p><strong>蛤</strong>，你问 Landmark 还可以用来干嘛？</p><p>当然是让美帝也感受一下<strong>膜法</strong>的力量！！！</p><table><tr><br><td><img src="/2018/02/24/face-landmark-with-dlib68/glassesssss_obm.jpg"></td><br><td><img src="/2018/02/24/face-landmark-with-dlib68/glassesssss_dt1.jpg"></td><br><td><img src="/2018/02/24/face-landmark-with-dlib68/glassesssss_ssl1.jpg"></td><br></tr></table><p>根据眼睛眉毛附近的点，来设计黑框眼镜的位置和大小。</p><p>代码很简单，我就不放了</p>]]></content>
+    <content type="html"><![CDATA[<p>我在做表情识别的时候，使用的是 CK/CK+ 的数据集，然而令人难受的是，我一直不知道如何去标记人脸特征点。因为数据集里面有标记好的 Landmarks，都放在里面了。所以我训练是直接用这个数据的，测试集其实也是从里面随机抽取的。</p><p>然而昨天在找资料的时候，我很敏感的发现了68这个数字。天哪，我怎么会忘记，这个就是 CK/CK+ 数据集里面标记点的个数啊！</p><p>于是，我开始了 dlib 的调试。</p><hr><a id="more"></a><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>话不多说，还是：</p><p>macOS + anaconda + Python2.7</p><h2 id="dlib-的安装："><a href="#dlib-的安装：" class="headerlink" title="dlib 的安装："></a>dlib 的安装：</h2><p>对于 Mac 用户，参见<a href="https://www.jianshu.com/p/3e0b7d1ddc56" target="_blank" rel="noopener">这一篇</a></p><p>其实我根本就是忘记了我在安装 face_recognition 时曾经在 Python3 的环境下安装过 dlib 了。<a href="https://spectop.github.io/2018/01/19/Face-Recognition/">看这里</a></p><h2 id="特征检测器"><a href="#特征检测器" class="headerlink" title="特征检测器"></a>特征检测器</h2><p>需要下载特征<a href="http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2" target="_blank" rel="noopener">检测器</a>，当然你也可以自己训练 (/滑稽)</p><p>下载后可以解压出一个 dat 文件，我们需要的就是这个。</p><hr><h1 id="检测人脸"><a href="#检测人脸" class="headerlink" title="检测人脸"></a>检测人脸</h1><p>之前就说过，dlib 也是可以检测人脸的。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">detector = dlib.get_frontal_face_detector()</span><br><span class="line">faces = detector(img, <span class="number">1</span>)</span><br></pre></td></tr></table></figure><p>这样，faces 里面就存储了所有脸部区域的范围。</p><p>值得注意的是，faces[i] 是第 i 张脸，使用<code>.top()    .bottom()    .left()    .right()</code>四个函数得到具体的值</p><hr><h1 id="特征点标记"><a href="#特征点标记" class="headerlink" title="特征点标记"></a>特征点标记</h1><p>加载刚刚下载的文件来标记特征点。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">landmark_predictor = dlib.shape_predictor(<span class="string">'./shape_predictor_68_face_landmarks.dat'</span>)</span><br><span class="line">shape = landmark_predictor(img,face_area)</span><br></pre></td></tr></table></figure><p>其中，shape 就保存了特征点的信息。</p><p>为了得到特征点的坐标，需要使用<code>.part()</code>函数，如下:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x[i] = shape.part(i).x</span><br><span class="line">y[i] = shape.part(i).y</span><br></pre></td></tr></table></figure><p>特征点是有顺序的，如下图：</p><p><img src="/2018/02/24/face-landmark-with-dlib68/tzd_samp.png" alt=""></p><p>68个特征点的位置如下：</p><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    IdxRange jaw;       // [<span class="number">0</span> , <span class="number">16</span>]</span><br><span class="line">    IdxRange rightBrow; // [<span class="number">17</span>, <span class="number">21</span>]</span><br><span class="line">    IdxRange leftBrow;  // [<span class="number">22</span>, <span class="number">26</span>]</span><br><span class="line">    IdxRange nose;      // [<span class="number">27</span>, <span class="number">35</span>]</span><br><span class="line">    IdxRange rightEye;  // [<span class="number">36</span>, <span class="number">41</span>]</span><br><span class="line">    IdxRange leftEye;   // [<span class="number">42</span>, <span class="number">47</span>]</span><br><span class="line">    IdxRange mouth;     // [<span class="number">48</span>, <span class="number">59</span>]</span><br><span class="line">    IdxRange mouth2;    // [<span class="number">60</span>, <span class="number">67</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> dlib</span><br><span class="line"></span><br><span class="line">detector = dlib.get_frontal_face_detector()</span><br><span class="line">landmark_predictor = dlib.shape_predictor(<span class="string">'./shape_predictor_68_face_landmarks.dat'</span>)</span><br><span class="line">img = cv2.imread(<span class="string">'./lyf2.png'</span>)</span><br><span class="line">faces = detector(img, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (len(faces) &gt; <span class="number">0</span>):</span><br><span class="line">    <span class="keyword">for</span> k,d <span class="keyword">in</span> enumerate(faces):</span><br><span class="line">        <span class="comment"># cv2.rectangle(img,(d.left(),d.top()),(d.right(),d.bottom()),(255,255,255))</span></span><br><span class="line">        shape = landmark_predictor(img,d)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">68</span>):</span><br><span class="line">            img2 = cv2.circle(img, (shape.part(i).x, shape.part(i).y),<span class="number">5</span>,(<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span>), <span class="number">-1</span>, <span class="number">8</span>)</span><br><span class="line">            img2 = cv2.putText(img,str(i),(shape.part(i).x,shape.part(i).y),cv2.FONT_HERSHEY_SIMPLEX,<span class="number">0.5</span>,(<span class="number">255</span>,<span class="number">2555</span>,<span class="number">255</span>))</span><br><span class="line">cv2.imshow(<span class="string">'Frame'</span>,img)</span><br><span class="line">cv2.imwrite(<span class="string">'./landmark.jpg'</span>, img2)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br></pre></td></tr></table></figure><p>效果如下：</p><table><tr><br><td><img src="/2018/02/24/face-landmark-with-dlib68/lyf2.png"></td><br><td><img src="/2018/02/24/face-landmark-with-dlib68/landmark.jpg"></td><br></tr></table><hr><p><strong>蛤</strong>，你问 Landmark 还可以用来干嘛？</p><p>当然是让美帝也感受一下<strong>膜法</strong>的力量！！！</p><table><tr><br><td><img src="/2018/02/24/face-landmark-with-dlib68/glassesssss_obm.jpg"></td><br><td><img src="/2018/02/24/face-landmark-with-dlib68/glassesssss_dt1.jpg"></td><br><td><img src="/2018/02/24/face-landmark-with-dlib68/glassesssss_ssl1.jpg"></td><br></tr></table><p>根据眼睛眉毛附近的点，来设计黑框眼镜的位置和大小。</p><p>代码很简单，我就不放了</p>]]></content>
     
     <summary type="html">
     
@@ -56,23 +56,23 @@
     
     </summary>
     
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://spectop.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://spectop.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+      <category term="Python" scheme="https://spectop.github.io/tags/Python/"/>
     
-      <category term="人脸识别" scheme="http://yoursite.com/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"/>
+      <category term="人脸识别" scheme="https://spectop.github.io/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"/>
     
-      <category term="情感识别" scheme="http://yoursite.com/tags/%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB/"/>
+      <category term="情感识别" scheme="https://spectop.github.io/tags/%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB/"/>
     
   </entry>
   
   <entry>
     <title>使用 OpenCV 检测人脸</title>
-    <link href="http://yoursite.com/2018/02/24/Face-recog-with-opencv/"/>
-    <id>http://yoursite.com/2018/02/24/Face-recog-with-opencv/</id>
+    <link href="https://spectop.github.io/2018/02/24/Face-recog-with-opencv/"/>
+    <id>https://spectop.github.io/2018/02/24/Face-recog-with-opencv/</id>
     <published>2018-02-24T02:56:47.000Z</published>
     <updated>2018-02-24T06:23:27.887Z</updated>
     
@@ -86,21 +86,21 @@
     
     </summary>
     
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://spectop.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://spectop.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+      <category term="Python" scheme="https://spectop.github.io/tags/Python/"/>
     
-      <category term="人脸识别" scheme="http://yoursite.com/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"/>
+      <category term="人脸识别" scheme="https://spectop.github.io/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"/>
     
   </entry>
   
   <entry>
     <title>Face Recognition的配置和初步使用</title>
-    <link href="http://yoursite.com/2018/01/19/Face-Recognition/"/>
-    <id>http://yoursite.com/2018/01/19/Face-Recognition/</id>
+    <link href="https://spectop.github.io/2018/01/19/Face-Recognition/"/>
+    <id>https://spectop.github.io/2018/01/19/Face-Recognition/</id>
     <published>2018-01-19T02:54:27.000Z</published>
     <updated>2018-01-19T12:25:24.372Z</updated>
     
@@ -115,21 +115,21 @@
     
     </summary>
     
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://spectop.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://spectop.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+      <category term="Python" scheme="https://spectop.github.io/tags/Python/"/>
     
-      <category term="人脸识别" scheme="http://yoursite.com/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"/>
+      <category term="人脸识别" scheme="https://spectop.github.io/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2017/02/11/hello-world/"/>
-    <id>http://yoursite.com/2017/02/11/hello-world/</id>
+    <link href="https://spectop.github.io/2017/02/11/hello-world/"/>
+    <id>https://spectop.github.io/2017/02/11/hello-world/</id>
     <published>2017-02-11T10:55:06.000Z</published>
     <updated>2018-01-19T04:19:41.626Z</updated>
     
@@ -144,15 +144,15 @@
     
     </summary>
     
-      <category term="杂项" scheme="http://yoursite.com/categories/%E6%9D%82%E9%A1%B9/"/>
+      <category term="杂项" scheme="https://spectop.github.io/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
   </entry>
   
   <entry>
     <title>markdown文档中mathjax的问题</title>
-    <link href="http://yoursite.com/2016/01/29/markdown%E6%96%87%E6%A1%A3%E4%B8%ADmathjax%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>http://yoursite.com/2016/01/29/markdown文档中mathjax的问题/</id>
+    <link href="https://spectop.github.io/2016/01/29/markdown%E6%96%87%E6%A1%A3%E4%B8%ADmathjax%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>https://spectop.github.io/2016/01/29/markdown文档中mathjax的问题/</id>
     <published>2016-01-28T16:03:10.000Z</published>
     <updated>2018-01-17T08:46:35.902Z</updated>
     
@@ -164,19 +164,19 @@
     
     </summary>
     
-      <category term="Markdown" scheme="http://yoursite.com/categories/Markdown/"/>
+      <category term="Markdown" scheme="https://spectop.github.io/categories/Markdown/"/>
     
     
-      <category term="Markdown" scheme="http://yoursite.com/tags/Markdown/"/>
+      <category term="Markdown" scheme="https://spectop.github.io/tags/Markdown/"/>
     
-      <category term="MathJax" scheme="http://yoursite.com/tags/MathJax/"/>
+      <category term="MathJax" scheme="https://spectop.github.io/tags/MathJax/"/>
     
   </entry>
   
   <entry>
     <title>「学习笔记」机器学习(1)</title>
-    <link href="http://yoursite.com/2016/01/22/%E3%80%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%8D%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-1/"/>
-    <id>http://yoursite.com/2016/01/22/「学习笔记」机器学习-1/</id>
+    <link href="https://spectop.github.io/2016/01/22/%E3%80%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%8D%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-1/"/>
+    <id>https://spectop.github.io/2016/01/22/「学习笔记」机器学习-1/</id>
     <published>2016-01-22T06:32:57.000Z</published>
     <updated>2018-01-19T04:18:34.482Z</updated>
     
@@ -199,19 +199,19 @@ sudo apt-get install python-pyside
     
     </summary>
     
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://spectop.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://spectop.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+      <category term="Python" scheme="https://spectop.github.io/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title> 重写博客</title>
-    <link href="http://yoursite.com/2016/01/22/%E9%87%8D%E5%86%99%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2016/01/22/重写博客/</id>
+    <link href="https://spectop.github.io/2016/01/22/%E9%87%8D%E5%86%99%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://spectop.github.io/2016/01/22/重写博客/</id>
     <published>2016-01-22T05:58:07.000Z</published>
     <updated>2018-01-17T08:46:35.902Z</updated>
     
@@ -228,15 +228,15 @@ sudo apt-get install python-pyside
     
     </summary>
     
-      <category term="杂项" scheme="http://yoursite.com/categories/%E6%9D%82%E9%A1%B9/"/>
+      <category term="杂项" scheme="https://spectop.github.io/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
   </entry>
   
   <entry>
     <title>背包九讲</title>
-    <link href="http://yoursite.com/2015/07/21/%E8%83%8C%E5%8C%85%E4%B9%9D%E8%AE%B2/"/>
-    <id>http://yoursite.com/2015/07/21/背包九讲/</id>
+    <link href="https://spectop.github.io/2015/07/21/%E8%83%8C%E5%8C%85%E4%B9%9D%E8%AE%B2/"/>
+    <id>https://spectop.github.io/2015/07/21/背包九讲/</id>
     <published>2015-07-21T13:25:48.000Z</published>
     <updated>2018-01-17T08:46:35.902Z</updated>
     
@@ -252,21 +252,21 @@ sudo apt-get install python-pyside
     
     </summary>
     
-      <category term="算法" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+      <category term="算法" scheme="https://spectop.github.io/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="C/C++" scheme="http://yoursite.com/tags/C-C/"/>
+      <category term="C/C++" scheme="https://spectop.github.io/tags/C-C/"/>
     
-      <category term="背包问题" scheme="http://yoursite.com/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"/>
+      <category term="背包问题" scheme="https://spectop.github.io/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"/>
     
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+      <category term="算法" scheme="https://spectop.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>Linux下如何实现C语言的system(&quot;pause&quot;)</title>
-    <link href="http://yoursite.com/2015/04/15/Linux%E4%B8%8B%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0C%E8%AF%AD%E8%A8%80%E7%9A%84system-pause/"/>
-    <id>http://yoursite.com/2015/04/15/Linux下如何实现C语言的system-pause/</id>
+    <link href="https://spectop.github.io/2015/04/15/Linux%E4%B8%8B%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0C%E8%AF%AD%E8%A8%80%E7%9A%84system-pause/"/>
+    <id>https://spectop.github.io/2015/04/15/Linux下如何实现C语言的system-pause/</id>
     <published>2015-04-15T01:23:57.000Z</published>
     <updated>2018-01-19T04:19:57.532Z</updated>
     
@@ -292,19 +292,19 @@ sudo apt-get install python-pyside
     
     </summary>
     
-      <category term="C/C++" scheme="http://yoursite.com/categories/C-C/"/>
+      <category term="C/C++" scheme="https://spectop.github.io/categories/C-C/"/>
     
     
-      <category term="C/C++" scheme="http://yoursite.com/tags/C-C/"/>
+      <category term="C/C++" scheme="https://spectop.github.io/tags/C-C/"/>
     
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+      <category term="Linux" scheme="https://spectop.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>C/C++的一些有趣的区别</title>
-    <link href="http://yoursite.com/2015/03/17/C-C++%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9C%89%E8%B6%A3%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>http://yoursite.com/2015/03/17/C-C++的一些有趣的区别/</id>
+    <link href="https://spectop.github.io/2015/03/17/C-C++%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9C%89%E8%B6%A3%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>https://spectop.github.io/2015/03/17/C-C++的一些有趣的区别/</id>
     <published>2015-03-17T14:55:06.000Z</published>
     <updated>2018-01-19T04:19:26.928Z</updated>
     
@@ -322,17 +322,17 @@ sudo apt-get install python-pyside
     
     </summary>
     
-      <category term="C/C++" scheme="http://yoursite.com/categories/C-C/"/>
+      <category term="C/C++" scheme="https://spectop.github.io/categories/C-C/"/>
     
     
-      <category term="C/C++" scheme="http://yoursite.com/tags/C-C/"/>
+      <category term="C/C++" scheme="https://spectop.github.io/tags/C-C/"/>
     
   </entry>
   
   <entry>
     <title>我的第一篇博客</title>
-    <link href="http://yoursite.com/2015/03/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2015/03/15/我的第一篇博客/</id>
+    <link href="https://spectop.github.io/2015/03/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://spectop.github.io/2015/03/15/我的第一篇博客/</id>
     <published>2015-03-15T07:06:48.000Z</published>
     <updated>2018-01-17T08:46:35.903Z</updated>
     
@@ -348,7 +348,7 @@ sudo apt-get install python-pyside
     
     </summary>
     
-      <category term="杂项" scheme="http://yoursite.com/categories/%E6%9D%82%E9%A1%B9/"/>
+      <category term="杂项" scheme="https://spectop.github.io/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
   </entry>
