@@ -73,8 +73,6 @@
 
 
 
-  
-
 
   <link rel="alternate" href="/atom.xml" title="Spectop's" type="application/atom+xml">
 
@@ -83,19 +81,19 @@
 
 
 
-<meta name="description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 目录结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
+<meta name="description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="痒痒鼠自动刷妖气封印">
 <meta property="og:url" content="http://yoursite.com/2019/02/18/onmyoji-support/index.html">
 <meta property="og:site_name" content="Spectop&#39;s">
-<meta property="og:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 目录结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
+<meta property="og:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/02/18/onmyoji-support/zhzz.png">
-<meta property="og:updated_time" content="2019-02-19T05:34:25.409Z">
+<meta property="og:updated_time" content="2019-03-01T09:38:48.559Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="痒痒鼠自动刷妖气封印">
-<meta name="twitter:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。 目录结构整个程序包含3个 Python 文件和两个目录，如下：  pic  :  用于放置一些用来确定场景进行比较的图片 usr  :  用于放置用户名的截图 baseFunction.py  :  定义了">
+<meta name="twitter:description" content="之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 GitHub 上了。这里记录一下整个代码的结构和思路备忘。">
 <meta name="twitter:image" content="http://yoursite.com/2019/02/18/onmyoji-support/zhzz.png">
 
 
@@ -167,7 +165,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">RMGL</p>
       
   </div>
 
@@ -359,6 +357,7 @@
 
       
         <p>之前在玩痒痒鼠的时候，苦于刷副本比较累，于是写了自动刷妖气封印的代码。现在对痒痒鼠兴致缺缺，在整理电脑文件的时候就把代码整理上传到了 <a href="https://github.com/spectop/spectop_others/tree/master/python/yysgo" target="_blank" rel="noopener">GitHub</a> 上了。这里记录一下整个代码的结构和思路备忘。</p>
+<a id="more"></a>
 <h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><p>整个程序包含3个 Python 文件和两个目录，如下：</p>
 <ul>
 <li>pic  :  用于放置一些用来确定场景进行比较的图片</li>
@@ -477,7 +476,23 @@
 <li>这里与时间相关的参数都是时间的最大值，程序执行时等待的对应时间都是从0到该「最大值」的随机数，以避免防作弊检测</li>
 <li>同理，这里所有的按钮的点击还有拖拽的操作，位置都是随机的。每一个 area（或 button） 都是 [[x1, y1], [x2, y2]] 的形式</li>
 </ul>
-<h2 id="order-py"><a href="#order-py" class="headerlink" title="order.py"></a>order.py</h2><p><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 开始
+<h2 id="order-py"><a href="#order-py" class="headerlink" title="order.py"></a>order.py</h2><p>order.py 定义了一些组合操作（即刷一个副本的完整操作，使用 baseFunction 的函数，也可以自行在此添加其他副本的操作），设置了一些有关按钮和相关检测区域位置坐标的参数。</p>
+<h3 id="副本操作示例（部分内容省略）"><a href="#副本操作示例（部分内容省略）" class="headerlink" title="副本操作示例（部分内容省略）"></a>副本操作示例（部分内容省略）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">guishihei</span><span class="params">(count, invitation_op, roomowner_op, user_name, activities=False)</span>:</span></span><br><span class="line">	<span class="comment"># count : 刷该副本的次数</span></span><br><span class="line">	<span class="comment"># *_op, activities : 对应上面表格</span></span><br><span class="line">	<span class="comment"># user_name : 用户名(与上文一致，即截图的文件名)</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(count - index &gt; <span class="number">0</span>):</span><br><span class="line">		pyautogui.moveTo(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0.3</span>) <span class="comment"># 为防止鼠标的遮挡，每次需要匹配图片之前，将鼠标移动到左上角，后面不再出现这行代码</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">#### 执行副本组队的一连串操作</span></span><br><span class="line">		baseFunction.waiting(get_start_symbol(user_name), PIC_INVATATION, invitation_op, PIC_ROOMOWNER, PIC_IS_SEARCHING, button_set) <span class="comment"># 若检测到 user_name.png 在屏幕中，则认为可以开始新一轮操作，否则继续等待</span></span><br><span class="line">		baseFunction.click(get_button(TEAM)) <span class="comment"># 点击『组队』按钮</span></span><br><span class="line">		<span class="keyword">if</span> activities:</span><br><span class="line">			baseFunction.roll(<span class="number">1</span>, get_button(AREA[<span class="number">0</span>]), block_height)</span><br><span class="line">		baseFunction.click(get_button(DEMON_SEAL)) <span class="comment"># 点击『妖气封印』按钮，若有特殊活动，将列表下滚一格再点击</span></span><br><span class="line">		drag_area = [get_button(AREA[<span class="number">1</span>][<span class="number">0</span>]), get_button(AREA[<span class="number">1</span>][<span class="number">1</span>])] <span class="comment"># 计算拖动区域</span></span><br><span class="line">		baseFunction.roll(<span class="number">8</span>, drag_area, block_height_l2) <span class="comment"># 下滚列表</span></span><br><span class="line">		baseFunction.click(get_button(GUI_SHI_HEI)) <span class="comment"># 点击『鬼使黑』按钮</span></span><br><span class="line">		baseFunction.click(get_button(MATCH)) <span class="comment"># 点击『自动匹配』</span></span><br><span class="line">		interupt = baseFunction.waiting(PIC_READY, PIC_INVATATION, invitation_op, PIC_ROOMOWNER, PIC_IS_SEARCHING, button_set) <span class="comment"># 检测『准备』按钮是否出现</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">#### 特殊情况的处理</span></span><br><span class="line">		<span class="keyword">if</span> interupt == <span class="number">1</span>: <span class="comment"># 1 表示成为房主了(waiting()函数会每隔一段时间检测悬赏封印邀请和房间状态，正常状态返回 0)</span></span><br><span class="line">			<span class="keyword">if</span> roomowner_op:</span><br><span class="line">				baseFunction.click(get_button(START)) <span class="comment"># 若接受成为房主，则点击『开始战斗』按钮开始</span></span><br><span class="line">				<span class="keyword">if</span> baseFunction.waiting(PIC_ROOMOWNER, PIC_INVATATION, invitation_op, PIC_ROOMOWNER, PIC_IS_SEARCHING, button_set) == <span class="number">0</span>: <span class="comment"># 由于检测房主间隔时间较长，有可能执行到这里时其他玩家退出了，因此需要等待『开始战斗』按钮重新亮起</span></span><br><span class="line">					baseFunction.click(get_button(START))</span><br><span class="line">					baseFunction.waiting(PIC_READY, PIC_INVATATION, invitation_op, PIC_ROOMOWNER, PIC_IS_SEARCHING, button_set) <span class="comment"># 等待『准备』按钮</span></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				baseFunction.click(get_button(BACK)) <span class="comment"># 若不接受房主，左上角返回，开始下一轮</span></span><br><span class="line">				countinue</span><br><span class="line"></span><br><span class="line">		<span class="comment">#### 到这里准备按钮亮起，玩家已经进入副本并可以开始战斗了</span></span><br><span class="line">		baseFunction.click(get_button(PREPARE)) <span class="comment"># 点击『准备』按钮</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">#### 战斗完成，点击任意位置退出</span></span><br><span class="line">		baseFunction.waiting(PIC_FINISH, PIC_INVATATION, invitation_op, PIC_ROOMOWNER, PIC_IS_SEARCHING, button_set)</span><br><span class="line">		baseFunction.click(get_button(FINISH))</span><br></pre></td></tr></table></figure>
+<h3 id="部分参数设置-分辨率等参数不同，最好使用前重新测定坐标）"><a href="#部分参数设置-分辨率等参数不同，最好使用前重新测定坐标）" class="headerlink" title="部分参数设置(分辨率等参数不同，最好使用前重新测定坐标）"></a>部分参数设置(分辨率等参数不同，最好使用前重新测定坐标）</h3><ul>
+<li>block_height_l1/l2 : 列表一格的高度，我在测量时 妖气封印的子列表(l2) 和其本身的列表(l1) 高度并不一样</li>
+<li>BASE : 基准点，后面的所有坐标都是对此坐标的相对位置，采取窗口左上角坐标作为基准点</li>
+<li>ACCEPT, DECLINE, BACK, START : （悬赏封印）接受/拒绝，返回，开始战斗 按钮的位置</li>
+<li>MATCH, PREPARE, FINISH : 自动匹配，准备，完成（点击任意位置退出） 按钮的位置</li>
+<li>TEAM, DEMON_SEAL : 组队（庭院界面），妖气封印 按钮的位置</li>
+<li>AREA : 列表的区域，roll() 函数需要这个区域来确定拖动的界限，AREA[0]是点击组队后出现的列表(l1)，AREA[1]是妖气封印下的子列表(l2)</li>
+<li>PIC_*, USER_BASE : 各种图片位置，用户名截图目录</li>
+</ul>
+<h2 id="yysgo-py"><a href="#yysgo-py" class="headerlink" title="yysgo.py"></a>yysgo.py</h2><p>程序入口，不用多说。</p>
+<p>在 order.py 中添加新的操作后，需要在这里调用。</p>
+<h1 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h1><ul>
+<li>图片检测的速度不够快，这有时会导致一些意料之外的事发生</li>
+<li>逐一像素检测图片会导致以后若有改版，需要重新截图</li>
+<li>order.py 中对特殊状况的处理似乎有一些错误，不过在实际使用中没有发生意外，就没有修改了<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 开始
 cond1=>condition: 处于主界面？
 cond2=>condition: 「准备」按钮亮起？
 cond3=>condition: 检测战斗是否完成
@@ -497,7 +512,8 @@ cond3(yes)->op6
 cond3(no)->cond3
 op6(right)->cond4
 cond4(yes)->e
-cond4(no)->cond1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
+cond4(no)->cond1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></li>
+</ul>
 
       
     </div>
@@ -687,7 +703,7 @@ cond4(no)->cond1</textarea><textarea id="flowchart-0-options" style="display: no
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录结构"><span class="nav-number">1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序内容"><span class="nav-number">3.</span> <span class="nav-text">程序内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#baseFunction-py"><span class="nav-number">3.1.</span> <span class="nav-text">baseFunction.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#order-py"><span class="nav-number">3.2.</span> <span class="nav-text">order.py</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录结构"><span class="nav-number">1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序内容"><span class="nav-number">3.</span> <span class="nav-text">程序内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#baseFunction-py"><span class="nav-number">3.1.</span> <span class="nav-text">baseFunction.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#order-py"><span class="nav-number">3.2.</span> <span class="nav-text">order.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#副本操作示例（部分内容省略）"><span class="nav-number">3.2.1.</span> <span class="nav-text">副本操作示例（部分内容省略）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部分参数设置-分辨率等参数不同，最好使用前重新测定坐标）"><span class="nav-number">3.2.2.</span> <span class="nav-text">部分参数设置(分辨率等参数不同，最好使用前重新测定坐标）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yysgo-py"><span class="nav-number">3.3.</span> <span class="nav-text">yysgo.py</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备注"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li></ol></div>
             
 
           </div>
