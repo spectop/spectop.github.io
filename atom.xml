@@ -295,9 +295,9 @@ sudo apt-get install python-pyside
       <category term="C/C++" scheme="http://yoursite.com/categories/C-C/"/>
     
     
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
       <category term="C/C++" scheme="http://yoursite.com/tags/C-C/"/>
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
     
   </entry>
   
