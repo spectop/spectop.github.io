@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://spectop.github.io/"/>
-  <updated>2019-03-01T09:44:22.431Z</updated>
+  <updated>2019-03-04T13:59:12.277Z</updated>
   <id>https://spectop.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>炼丹实战(1):丹炉的使用</title>
+    <link href="https://spectop.github.io/2019/03/04/tensorflow-learning-1/"/>
+    <id>https://spectop.github.io/2019/03/04/tensorflow-learning-1/</id>
+    <published>2019-03-04T12:16:53.000Z</published>
+    <updated>2019-03-04T13:59:12.277Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近嘛，准备开始炼丹，虽然我的博客没什么人看，但是我还是打算把一些过程记录下来，假使以后不炼丹，忘了，也能很快回忆起来。所以，新坑就这么开起来吧~~~ 另外，机器学习的学习笔记，emmm，不打算继续写了（也许以后有时间会简要地写一下后面的内容吧，也说不定）</p><a id="more"></a><p>所谓「炼丹」嘛，就是训练 AI 模型。每次训练都要调整几个参数，然后等上短则半个小时，长则几天几夜，然后训练出一个准确率并不一定能达到期望的模型。就像炼丹一样，不断调整药材的配比，放丹炉里炼上个七七四十九天，结果出来一炉废丹一样。简直一模一样嘛！我有感觉：我如果有朝一日成为一名合格的炼丹师，那么我的耐心一定会锻炼的很好 QAQ</p><p>“工欲善其事必先利其器”，要成为一名合格的炼丹师，除非你是天赋异禀的炼丹奇才，能丹火化鼎，在空中结丹，不然还是要选择一个好的丹炉要紧。所谓好的丹炉嘛，当然要质量上乘，生产厂家得是知名大厂；其次，最好能足够聪明，我把丹方输进去，它能自动炼丹，就像《校花的贴身高手》里面的那个高科技自动炼丹炉一样（话说这个小说为什么现在都还在更新啊~）。因此，我推荐知名大厂——谷歌——出品的丹炉：TensorFlow。质量过硬，炼丹过程足够智能，是居家旅行的必备之选。</p><p><img src="/2019/03/04/tensorflow-learning-1/tf_logo.jpeg" alt="TensorFlow"></p><p>那么接下来就来认识一下 TensorFlow 吧！</p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>TensorFlow 是一个 Python 的包，因此直接用 pip 安装就行了。当然个人推荐用 anaconda 创建虚拟环境安装。</p><p>TensorFlow 有 CPU 和 GPU 两个版本，可以按照需要选择安装，当然，GPU 的运算能力确实强悍，2080Ti 买起来啊！毕竟强大的光追，炼丹之余，还可以玩玩《地铁》对吧。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorflow  <span class="comment"># cpu version</span></span><br><span class="line">pip install tensorflow-gpu  <span class="comment"># gpu version</span></span><br></pre></td></tr></table></figure><p>另外，似乎忘了说 <a href="https://tensorflow.google.cn/" target="_blank" rel="noopener">TensorFlow 的官网</a>了，国内也可以直接连得上呢。</p><h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p>TensorFlow 是 Python 的一个库，自然语法和 Python 是一样的，然而 TensorFlow 有着比较与众不同的逻辑，接下来，我们就看看 TensorFlow 程序由哪些部分构成的吧！</p><ul><li>Tensor : 张量，可以简理解为数据，TensorFlow 就是数据流动</li><li>Graphs : 图，TensorFlow 使用图来表示计算任务，就像 boss 交给你的一份任务清单，上面写满了你要做的事</li><li>Session : 会话，图需要在会话里启动，就像公司的员工，拿到任务清单就要开始干活</li><li>Operation : 操作，图中的节点，执行计算，接收并产生 Tensor，也就是任务清单上的每一项单独的任务</li></ul><p>还有一些如变量、常量的东西，feed、fetch 之类的操作，我认为不算是 TensorFlow 程序的组成结构，在此就不说了，后面遇到可以搜一下，结合代码理解。</p><h1 id="第一个程序"><a href="#第一个程序" class="headerlink" title="第一个程序"></a>第一个程序</h1><p>不管是学什么，对于一个程序员来说，”Hello World” 这么神圣的东西，是一定要写一遍的。那么就直接上代码吧，可以成功输出的，就算是安装好了。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">hello = tf.constant(<span class="string">"Hello, World!"</span>)</span><br><span class="line">sess = tf.Session()</span><br><span class="line"><span class="keyword">print</span> sess.run(hello)</span><br><span class="line">sess.close()</span><br></pre></td></tr></table></figure><p>稍微解释一下吧：</p><ol><li>TensorFlow 使用constant()方法创建常量</li><li>使用 Session() 方法创建会话，同时会创建一个默认图，之前说过的，Session 像一个员工，进入公司时自带了一份任务清单，使用 run() 方法让他来执行任务（Session 会按图索骥，执行完当前任务所需要的全部前置任务，当然了，本例的 Session 只有一个任务：创建一个常量了）</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;最近嘛，准备开始炼丹，虽然我的博客没什么人看，但是我还是打算把一些过程记录下来，假使以后不炼丹，忘了，也能很快回忆起来。所以，新坑就这么开起来吧~~~ 另外，机器学习的学习笔记，emmm，不打算继续写了（也许以后有时间会简要地写一下后面的内容吧，也说不定）&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://spectop.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="https://spectop.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Python" scheme="https://spectop.github.io/tags/Python/"/>
+    
+      <category term="TensorFlow" scheme="https://spectop.github.io/tags/TensorFlow/"/>
+    
+  </entry>
   
   <entry>
     <title>痒痒鼠自动刷妖气封印</title>
