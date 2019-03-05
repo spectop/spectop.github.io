@@ -97,7 +97,10 @@
 <meta property="og:description" content="前言上一篇了解了丹炉后，那么这一次，我们就要动手实践，炼制自己的第一炉丹药了。万事皆应由易向难，说到最简单的丹药，那自然是一品丹药「回春散」了。咳咳~ 那么这一篇就从简单的回归讲起，主要是让大家熟悉一下，TensorFlow 的处世哲学，看看 TensorFlow 是怎么解决问题的。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://spectop.github.io/2019/03/05/tensorflow-learning-2/resu_lin.png">
-<meta property="og:updated_time" content="2019-03-05T03:25:17.478Z">
+<meta property="og:image" content="https://spectop.github.io/2019/03/05/tensorflow-learning-2/2-3.png">
+<meta property="og:image" content="https://spectop.github.io/2019/03/05/tensorflow-learning-2/2-4.png">
+<meta property="og:image" content="https://spectop.github.io/2019/03/05/tensorflow-learning-2/2-4-2.png">
+<meta property="og:updated_time" content="2019-03-05T05:28:26.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="炼丹实战(2):第一炉丹">
 <meta name="twitter:description" content="前言上一篇了解了丹炉后，那么这一次，我们就要动手实践，炼制自己的第一炉丹药了。万事皆应由易向难，说到最简单的丹药，那自然是一品丹药「回春散」了。咳咳~ 那么这一篇就从简单的回归讲起，主要是让大家熟悉一下，TensorFlow 的处世哲学，看看 TensorFlow 是怎么解决问题的。">
@@ -352,7 +355,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-05T11:25:17+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-05T13:28:26+08:00">
                 2019-03-05
               </time>
             
@@ -402,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k
+                  2.4k
                 </span>
               
 
@@ -418,7 +421,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  10
                 </span>
               
             </div>
@@ -460,7 +463,35 @@
 <p>可以看到，即使数据有所波动，程序还是准确的将 k 和 b 调整到了 0.1 和 0.2 的附近。</p>
 <p>PS：要注意的是，TensorFlow 的数据的值也要在 Session 中使用 run() 来获取哦！</p>
 <h1 id="优秀的·回春散"><a href="#优秀的·回春散" class="headerlink" title="优秀的·回春散"></a>优秀的·回春散</h1><p>线性回归的问题解决了，那么来试试非线性的吧！</p>
-<p><em>未完待续</em></p>
+<p>这里就直接用掺杂的数据了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x_data = np.linspace(<span class="number">-0.5</span>, <span class="number">0.5</span>, <span class="number">200</span>)[:, np.newaxis]</span><br><span class="line">noise = np.random.normal(<span class="number">0</span>, <span class="number">0.02</span>, x_data.shape)</span><br><span class="line">y_data = np.square(x_data) + noise</span><br><span class="line"></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line">y = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">a = tf.Variable(<span class="number">0.</span>)</span><br><span class="line">b = tf.Variable(<span class="number">0.</span>)</span><br><span class="line">c = tf.Variable(<span class="number">0.</span>)</span><br><span class="line">y_pre = a * tf.square(x) + b * x + c</span><br><span class="line"></span><br><span class="line">loss = tf.reduce_mean(tf.square(y - y_pre))</span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.1</span>).minimize(loss)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2000</span>):</span><br><span class="line">        sess.run(train_step, feed_dict=&#123;x: x_data, y: y_data&#125;)</span><br><span class="line"></span><br><span class="line">    prediction_value = sess.run(y_pre, feed_dict=&#123;x: x_data&#125;)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'result: '</span>, sess.run([a, b, c])</span><br><span class="line"></span><br><span class="line">plt.figure()</span><br><span class="line">plt.scatter(x_data, y_data)</span><br><span class="line">plt.plot(x_data, prediction_value, <span class="string">'r-'</span>, lw=<span class="number">5</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>这里的 x 和 y 的数据都是在使用的时候传进去的，而不是像前面一样一开始就定死的。placeholder 和 feed 具体的用法可以自行搜索，</p>
+<p>下面是拟合的结果：</p>
+<p><img src="/2019/03/05/tensorflow-learning-2/2-3.png" alt="拟合结果"></p>
+<p>输出的参数 a, b, c：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result:  [<span class="number">0.9012379</span>, -<span class="number">0</span>.<span class="number">008498974</span>, <span class="number">0</span>.<span class="number">008641074</span>]</span><br></pre></td></tr></table></figure>
+<h1 id="精良的·回春散"><a href="#精良的·回春散" class="headerlink" title="精良的·回春散"></a>精良的·回春散</h1><p>对深度学习和神经网络有一些了解的小伙伴应该可以看出来，上面的三个都是只有输入和输出层，没有中间层的。而且，上面的程序都是我们确定好了回归的类型，即我们知道结果应该是线性，或者二次函数，然后我们去拟合它，寻找最佳的参数。既然要用 TensorFlow，那么自然也要加一层中间层才像样子嘛~</p>
+<p>前面的模型都是：</p>
+<p>【输入层】     =====( * 权重 + 偏置值) =====&gt;     【输出层】</p>
+<p>加了中间层之后：</p>
+<p>【输入层】     =====( * 权重 + 偏置值) =====&gt;     【中间层】     =====( * 权重 + 偏置值) =====&gt;     【输出层】</p>
+<p>中间层的节点可以不止一个，因此，两级的权重和偏置值都是矩阵的形式。不同于前面的，我们不需要知道我们拟合的是什么类型的函数，我们只需要中间的两层权重和偏置值矩阵就行了；我们也不需要知道这两层的值是怎么调整出来的，因为 TensorFlow 会自动为我们调整；我们更不需要知道为什么这样可以，只要准确率达到我们的期望就可以。我们需要做的，只是将图的结构画出来，Session 会直接根据变量之间的关系进行调整。</p>
+<p><img src="/2019/03/05/tensorflow-learning-2/2-4.png" alt="网络的结构"></p>
+<p>如上图所示，输入的 x 与 1 行 10 列的权重矩阵相乘，得出一个 1 行 10 列的矩阵，再加上同样是 1 行 10 列的偏置值，成为中间节点的值。中间节点值为 1 行 10 列的矩阵，与第二层 10 行 1 列的权重矩阵做矩阵乘法，得出一个 1 行 1 列的数值，加上第二层的偏置值，结果就是输出 y。我们说需要的就是两层的权重和偏置值，但是为什么这样，原理是什么，为什么它这样可以拟合，<strong>我们完全不需要知道</strong>。</p>
+<p><strong>注意：</strong> 上图没有画激励函数的部分，乘上权重加上偏置值之后需要放入激励函数中，以引入非线性因素（如果不加入的话，y 和 x 依然是「线性关系」），更多关于激励函数的内容可以自行上网搜索。</p>
+<p>接下来就是代码的部分了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x_data = np.linspace(<span class="number">-0.5</span>, <span class="number">0.5</span>, <span class="number">200</span>)[:, np.newaxis]</span><br><span class="line">noise = np.random.normal(<span class="number">0</span>, <span class="number">0.02</span>, x_data.shape)</span><br><span class="line">y_data = np.square(x_data) + noise</span><br><span class="line"></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line">y = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">Weight_L1 = tf.Variable(tf.random_normal([<span class="number">1</span>, <span class="number">10</span>]))</span><br><span class="line">biases_L1 = tf.Variable(tf.zeros([<span class="number">1</span>, <span class="number">10</span>]))</span><br><span class="line">Wx_plus_b_L1 = tf.matmul(x, Weight_L1) + biases_L1</span><br><span class="line">L1 = tf.nn.tanh(Wx_plus_b_L1)</span><br><span class="line"></span><br><span class="line">Weight_L2 = tf.Variable(tf.random_normal([<span class="number">10</span>, <span class="number">1</span>]))</span><br><span class="line">biases_L2 = tf.Variable(tf.zeros([<span class="number">1</span>, <span class="number">1</span>]))</span><br><span class="line">Wx_plus_b_L2 = tf.matmul(L1, Weight_L2) + biases_L2</span><br><span class="line">prediction = tf.nn.tanh(Wx_plus_b_L2)</span><br><span class="line"></span><br><span class="line">loss = tf.reduce_mean(tf.square(y - prediction))</span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.1</span>).minimize(loss)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2000</span>):</span><br><span class="line">        sess.run(train_step, feed_dict=&#123;x: x_data, y: y_data&#125;)</span><br><span class="line">    prediction_value = sess.run(prediction, feed_dict=&#123;x: x_data&#125;)</span><br><span class="line"></span><br><span class="line">plt.figure()</span><br><span class="line">plt.scatter(x_data, y_data)</span><br><span class="line">plt.plot(x_data, prediction_value, <span class="string">'r-'</span>, lw=<span class="number">5</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用 tanh 作为激励函数</li>
+<li>使用梯度下降法训练</li>
+<li>损失为差平方的均值</li>
+<li>注意观察两层的网络结构以及数据之间的流动关系</li>
+</ul>
+<p>运行的结果：</p>
+<p><img src="/2019/03/05/tensorflow-learning-2/2-4-2.png" alt="拟合结果"></p>
+<p>注意观察曲线的两端，可以明显的看到和之前二次函数直接拟合的区别。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>上文 4 段代码解决了一些简单的回归问题，通过这些问题的解决，我们可以看出 TensorFlow 简单但又十分高效的处理问题的逻辑。在今后的漫漫炼丹路上，可能会遇到更多复杂的问题，但自动化的炼丹让我们可以将更多的精力投入到丹方的研究上。</p>
+<p>要学习的内容还有很多，加油吧~~</p>
 
       
     </div>
@@ -678,7 +709,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#粗糙的·回春散"><span class="nav-number">2.</span> <span class="nav-text">粗糙的·回春散</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#普通的·回春散"><span class="nav-number">3.</span> <span class="nav-text">普通的·回春散</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优秀的·回春散"><span class="nav-number">4.</span> <span class="nav-text">优秀的·回春散</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#粗糙的·回春散"><span class="nav-number">2.</span> <span class="nav-text">粗糙的·回春散</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#普通的·回春散"><span class="nav-number">3.</span> <span class="nav-text">普通的·回春散</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优秀的·回春散"><span class="nav-number">4.</span> <span class="nav-text">优秀的·回春散</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#精良的·回春散"><span class="nav-number">5.</span> <span class="nav-text">精良的·回春散</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
             
 
           </div>
@@ -712,7 +743,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">12.5k</span>
+    <span title="Site words total count">13.7k</span>
   
 </div>
 
