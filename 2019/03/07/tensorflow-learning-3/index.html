@@ -98,7 +98,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://spectop.github.io/2019/03/07/tensorflow-learning-3/p1-1.png">
 <meta property="og:image" content="https://spectop.github.io/2019/03/07/tensorflow-learning-3/p1-2.png">
-<meta property="og:updated_time" content="2019-03-07T07:27:30.553Z">
+<meta property="og:updated_time" content="2019-03-07T10:45:37.037Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="炼丹实战(3):手写数字识别">
 <meta name="twitter:description" content="前言既然已经踏上了漫漫的炼丹之路，那么接下来的修行就必不可少。上一篇用一些实例来演示了 TensorFlow 是如何工作的，但那只是简单的回归而已，不能算是真正的炼丹。这一篇，我们就聊一聊几乎每个人都会用来作为 TensorFlow 实践的第一个项目的——手写数字识别。">
@@ -353,7 +353,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-07T15:27:30+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-07T18:45:37+08:00">
                 2019-03-07
               </time>
             
@@ -403,7 +403,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  651
+                  1.3k
                 </span>
               
 
@@ -419,7 +419,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  5
                 </span>
               
             </div>
@@ -462,6 +462,15 @@
 
 <p>上图就是训练集的前两张图片。图片长什么样子其实根本不重要啦，毕竟训练的时候不过都是些矩阵而已，最终也可以根据标签来判断准确率，没必要把图片都展示出来。</p>
 <h1 id="坯子"><a href="#坯子" class="headerlink" title="坯子"></a>坯子</h1><p>想得到一个能够识别手写数字的模型，我们先来一个没有中间层的吧！输入层 784 个节点之间连接到输出层的 10 个节点上（输出层的 10 个节点对应 10 个数字，选择数值最大的节点作为结果），这样的模型应该算得上是简单暴力了吧！当然，这样做的准确率一定是不高的，不过我们可以之后慢慢调整嘛。炼丹怎么会一次成功呢？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">"MNIST_data"</span>, one_hot=<span class="keyword">True</span>)</span><br><span class="line">batch_size = <span class="number">100</span></span><br><span class="line">n_batch = mnist.train.num_examples</span><br><span class="line"></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">784</span>])</span><br><span class="line">y = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">10</span>])</span><br><span class="line"></span><br><span class="line">W = tf.Variable(tf.zeros([<span class="number">784</span>, <span class="number">10</span>]))</span><br><span class="line">b = tf.Variable(tf.zeros([<span class="number">10</span>]))</span><br><span class="line"></span><br><span class="line">prediction = tf.nn.softmax(tf.matmul(x, W) + b)</span><br><span class="line">loss = tf.reduce_mean(tf.square(y - prediction))</span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.2</span>).minimize(loss)</span><br><span class="line"></span><br><span class="line">correct_prediction = tf.equal(tf.argmax(y, <span class="number">1</span>), tf.argmax(prediction, <span class="number">1</span>))</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">21</span>):</span><br><span class="line">        <span class="keyword">for</span> batch <span class="keyword">in</span> range(n_batch):</span><br><span class="line">            batch_xs, batch_ys = mnist.train.next_batch(batch_size)</span><br><span class="line">            sess.run(train_step, feed_dict=&#123;x: batch_xs, y: batch_ys&#125;)</span><br><span class="line"></span><br><span class="line">        test_acc = sess.run(accuracy, feed_dict=&#123;x: mnist.test.images, y: mnist.test.labels&#125;)</span><br><span class="line">        train_acc = sess.run(accuracy, feed_dict=&#123;x: mnist.train.images, y: mnist.train.labels&#125;)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Iter "</span> + str(epoch) + <span class="string">" , Training Accuracy "</span> + str(train_acc) + <span class="string">" , Testing Accuracy "</span> + str(test_acc)</span><br></pre></td></tr></table></figure>
+<h2 id="程序解释"><a href="#程序解释" class="headerlink" title="程序解释"></a>程序解释</h2><ul>
+<li>MNIST 数据集可以由 tensorflow.examples 下载，其中 “MNIST_data” 是放数据的目录名（没有该目录会创建目录），one_hot 指标签采用 [0,0,1,0,…] 这样的形式，结果是几，第几位的数字就是 1 ，其他 9 位都是 0 。</li>
+<li>batch_size 表示数据一批一批的传入，每一批 100 组数据</li>
+<li>softmax 函数可以将输出映射为 0~1 的值，正好对应概率，同时，该函数会隐藏比较小的数而放大比较大的数。更多关于 softmax 函数的介绍可以参考<a href="https://zh.wikipedia.org/wiki/Softmax函数" target="_blank" rel="noopener">维基百科</a> 。</li>
+</ul>
+<h2 id="程序结果"><a href="#程序结果" class="headerlink" title="程序结果"></a>程序结果</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Iter <span class="number">0</span> , Training Accuracy <span class="number">0.92636365</span> , Testing Accuracy <span class="number">0.9262</span></span><br><span class="line">Iter <span class="number">1</span> , Training Accuracy <span class="number">0.9321455</span> , Testing Accuracy <span class="number">0.9288</span></span><br><span class="line">Iter <span class="number">2</span> , Training Accuracy <span class="number">0.93523633</span> , Testing Accuracy <span class="number">0.9299</span></span><br><span class="line">Iter <span class="number">3</span> , Training Accuracy <span class="number">0.93756366</span> , Testing Accuracy <span class="number">0.9307</span></span><br><span class="line">Iter <span class="number">4</span> , Training Accuracy <span class="number">0.93874544</span> , Testing Accuracy <span class="number">0.931</span></span><br><span class="line">Iter <span class="number">5</span> , Training Accuracy <span class="number">0.93994546</span> , Testing Accuracy <span class="number">0.9313</span></span><br><span class="line">Iter <span class="number">6</span> , Training Accuracy <span class="number">0.9410909</span> , Testing Accuracy <span class="number">0.9314</span></span><br><span class="line">Iter <span class="number">7</span> , Training Accuracy <span class="number">0.94207275</span> , Testing Accuracy <span class="number">0.9311</span></span><br><span class="line">Iter <span class="number">8</span> , Training Accuracy <span class="number">0.9428727</span> , Testing Accuracy <span class="number">0.9307</span></span><br><span class="line">Iter <span class="number">9</span> , Training Accuracy <span class="number">0.94354546</span> , Testing Accuracy <span class="number">0.9308</span></span><br><span class="line">Iter <span class="number">10</span> , Training Accuracy <span class="number">0.9443273</span> , Testing Accuracy <span class="number">0.9303</span></span><br><span class="line">Iter <span class="number">11</span> , Training Accuracy <span class="number">0.9447273</span> , Testing Accuracy <span class="number">0.9296</span></span><br><span class="line">Iter <span class="number">12</span> , Training Accuracy <span class="number">0.9454</span> , Testing Accuracy <span class="number">0.9298</span></span><br><span class="line">Iter <span class="number">13</span> , Training Accuracy <span class="number">0.9456364</span> , Testing Accuracy <span class="number">0.9301</span></span><br><span class="line">Iter <span class="number">14</span> , Training Accuracy <span class="number">0.94603634</span> , Testing Accuracy <span class="number">0.93</span></span><br><span class="line">Iter <span class="number">15</span> , Training Accuracy <span class="number">0.94632727</span> , Testing Accuracy <span class="number">0.9295</span></span><br><span class="line">Iter <span class="number">16</span> , Training Accuracy <span class="number">0.94698185</span> , Testing Accuracy <span class="number">0.9298</span></span><br><span class="line">Iter <span class="number">17</span> , Training Accuracy <span class="number">0.94734544</span> , Testing Accuracy <span class="number">0.9311</span></span><br><span class="line">Iter <span class="number">18</span> , Training Accuracy <span class="number">0.9475273</span> , Testing Accuracy <span class="number">0.9311</span></span><br><span class="line">Iter <span class="number">19</span> , Training Accuracy <span class="number">0.9479091</span> , Testing Accuracy <span class="number">0.9315</span></span><br><span class="line">Iter <span class="number">20</span> , Training Accuracy <span class="number">0.9483455</span> , Testing Accuracy <span class="number">0.9315</span></span><br></pre></td></tr></table></figure>
+<p>上面是程序运行的结果，可以看到 93.15% 的测试集都识别成功了。但是这显然是不够的，我们还可以优化程序，让模型的正确率更高。</p>
+<p>那么下一步，让我们修改模型，让预测的准确率（测试集）提升到 95% 以上吧，漫漫炼丹路就要开始咯~~</p>
 <p><em>未完待续</em></p>
 
       
@@ -680,7 +689,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MNIST-数据集"><span class="nav-number">2.</span> <span class="nav-text">MNIST 数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#坯子"><span class="nav-number">3.</span> <span class="nav-text">坯子</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MNIST-数据集"><span class="nav-number">2.</span> <span class="nav-text">MNIST 数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#坯子"><span class="nav-number">3.</span> <span class="nav-text">坯子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#程序解释"><span class="nav-number">3.1.</span> <span class="nav-text">程序解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序结果"><span class="nav-number">3.2.</span> <span class="nav-text">程序结果</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -714,7 +723,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">14.3k</span>
+    <span title="Site words total count">15k</span>
   
 </div>
 
