@@ -373,9 +373,9 @@ sudo apt-get install python-pyside
       <category term="C/C++" scheme="https://spectop.github.io/categories/C-C/"/>
     
     
-      <category term="C/C++" scheme="https://spectop.github.io/tags/C-C/"/>
-    
       <category term="Linux" scheme="https://spectop.github.io/tags/Linux/"/>
+    
+      <category term="C/C++" scheme="https://spectop.github.io/tags/C-C/"/>
     
   </entry>
   
