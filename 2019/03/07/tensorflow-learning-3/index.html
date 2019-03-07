@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="机器学习,Python,TensorFlow,">
 
 
 
@@ -88,16 +88,21 @@
 
 
 
-<meta name="description" content="To be or not to be.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Spectop&#39;s">
-<meta property="og:url" content="https://spectop.github.io/categories/机器学习/index.html">
+<meta name="description" content="前言既然已经踏上了漫漫的炼丹之路，那么接下来的修行就必不可少。上一篇用一些实例来演示了 TensorFlow 是如何工作的，但那只是简单的回归而已，不能算是真正的炼丹。这一篇，我们就聊一聊几乎每个人都会用来作为 TensorFlow 实践的第一个项目的——手写数字识别。">
+<meta name="keywords" content="机器学习,Python,TensorFlow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="炼丹实战(3):手写数字识别">
+<meta property="og:url" content="https://spectop.github.io/2019/03/07/tensorflow-learning-3/index.html">
 <meta property="og:site_name" content="Spectop&#39;s">
-<meta property="og:description" content="To be or not to be.">
+<meta property="og:description" content="前言既然已经踏上了漫漫的炼丹之路，那么接下来的修行就必不可少。上一篇用一些实例来演示了 TensorFlow 是如何工作的，但那只是简单的回归而已，不能算是真正的炼丹。这一篇，我们就聊一聊几乎每个人都会用来作为 TensorFlow 实践的第一个项目的——手写数字识别。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://spectop.github.io/2019/03/07/tensorflow-learning-3/p1-1.png">
+<meta property="og:image" content="https://spectop.github.io/2019/03/07/tensorflow-learning-3/p1-2.png">
+<meta property="og:updated_time" content="2019-03-07T07:27:30.553Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spectop&#39;s">
-<meta name="twitter:description" content="To be or not to be.">
+<meta name="twitter:title" content="炼丹实战(3):手写数字识别">
+<meta name="twitter:description" content="前言既然已经踏上了漫漫的炼丹之路，那么接下来的修行就必不可少。上一篇用一些实例来演示了 TensorFlow 是如何工作的，但那只是简单的回归而已，不能算是真正的炼丹。这一篇，我们就聊一聊几乎每个人都会用来作为 TensorFlow 实践的第一个项目的——手写数字识别。">
+<meta name="twitter:image" content="https://spectop.github.io/2019/03/07/tensorflow-learning-3/p1-1.png">
 
 
 
@@ -127,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="https://spectop.github.io/categories/机器学习/">
+  <link rel="canonical" href="https://spectop.github.io/2019/03/07/tensorflow-learning-3/">
 
 
 
 
 
-  <title>分类: 机器学习 | Spectop's</title>
+  <title>炼丹实战(3):手写数字识别 | Spectop's</title>
   
 
 
@@ -152,7 +157,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/spectop" target="_blank" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -289,209 +294,256 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>机器学习<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://spectop.github.io/2019/03/07/tensorflow-learning-3/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Spectop">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/9566880?v=3&u=5aaa5ac72ef2caf60678af301b9fc3ea4e604ef9&s=400">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Spectop's">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/03/07/tensorflow-learning-3/" itemprop="url">
-              
-                <span itemprop="name">炼丹实战(3):手写数字识别</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">炼丹实战(3):手写数字识别</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-07T14:38:02+08:00" content="2019-03-07">
-          03-07
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-07T14:38:02+08:00">
+                2019-03-07
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-07T15:27:30+08:00">
+                2019-03-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  651
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/05/tensorflow-learning-2/" itemprop="url">
-              
-                <span itemprop="name">炼丹实战(2):第一炉丹</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-05T10:28:52+08:00" content="2019-03-05">
-          03-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>既然已经踏上了漫漫的炼丹之路，那么接下来的修行就必不可少。上一篇用一些实例来演示了 TensorFlow 是如何工作的，但那只是简单的回归而已，不能算是真正的炼丹。这一篇，我们就聊一聊几乎每个人都会用来作为 TensorFlow 实践的第一个项目的——手写数字识别。</p>
+<a id="more"></a>
+<h1 id="MNIST-数据集"><a href="#MNIST-数据集" class="headerlink" title="MNIST 数据集"></a>MNIST 数据集</h1><p>既然是训练一个能够识别手写数字的模型，那么手写数字的数据就必不可少。MNIST 数据集是一个几乎被每个炼丹师都用过的数据集了，每一个 TensorFlow 的教程一个都会对它下手。下面来介绍一下 MNIST 数据集。</p>
+<p>MNIST 数据集在 <a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">http://yann.lecun.com/exdb/mnist/</a> 可以下载，来自美国国家标准与技术研究所, <strong>National Institute of Standards and Technology (NIST)</strong>。训练集包含了 250 个不同人的手写数字，其中 50% 是高中学生，50% 来自人口普查局的工作人员。测试集的数据是同样的比例。</p>
+<p>数据分为4个文件，分别是「训练集图像」、「训练集标签」、「测试集图像」、「测试集标签」</p>
+<ul>
+<li><p>train-images-idx3-ubyte.gz:  training set images (9912422 bytes)</p>
+</li>
+<li><p>train-labels-idx1-ubyte.gz:  training set labels (28881 bytes)</p>
+</li>
+<li><p>t10k-images-idx3-ubyte.gz:   test set images (1648877 bytes)</p>
+</li>
+<li><p>t10k-labels-idx1-ubyte.gz:   test set labels (4542 bytes)</p>
+</li>
+</ul>
+<p>训练集（mnist.train）有 55000 行，验证集（mnist.validation）有 5000 行，测试集（mnist.test）有 10000 行。训练集的每一张图片（mnist.train.images）有 28 * 28 = 784 个像素点，即整个训练集可以转化为 [55000, 784] 的矩阵。</p>
+<p>通过以下的简单操作就可以看到图片了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">img = np.array(mnist.train.images[<span class="number">1</span>])</span><br><span class="line">img = img.reshape(<span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line">plt.figure()</span><br><span class="line">plt.imshow(img, cmap=<span class="string">'gray'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<table><tr><br><td><img src="/2019/03/07/tensorflow-learning-3/p1-1.png"></td><br><td><img src="/2019/03/07/tensorflow-learning-3/p1-2.png"></td><br></tr></table>
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/04/tensorflow-learning-1/" itemprop="url">
-              
-                <span itemprop="name">炼丹实战(1):丹炉的使用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-04T20:16:53+08:00" content="2019-03-04">
-          03-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/24/face-landmark-with-dlib68/" itemprop="url">
-              
-                <span itemprop="name">使用 dlib 对人脸特征点标记</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-02-24T13:01:01+08:00" content="2018-02-24">
-          02-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/24/Face-recog-with-opencv/" itemprop="url">
-              
-                <span itemprop="name">使用 OpenCV 检测人脸</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-02-24T10:56:47+08:00" content="2018-02-24">
-          02-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/01/19/Face-Recognition/" itemprop="url">
-              
-                <span itemprop="name">Face Recognition的配置和初步使用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-01-19T10:54:27+08:00" content="2018-01-19">
-          01-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/01/22/「学习笔记」机器学习-1/" itemprop="url">
-              
-                <span itemprop="name">「学习笔记」机器学习(1)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-01-22T14:32:57+08:00" content="2016-01-22">
-          01-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<p>上图就是训练集的前两张图片。图片长什么样子其实根本不重要啦，毕竟训练的时候不过都是些矩阵而已，最终也可以根据标签来判断准确率，没必要把图片都展示出来。</p>
+<h1 id="坯子"><a href="#坯子" class="headerlink" title="坯子"></a>坯子</h1><p>想得到一个能够识别手写数字的模型，我们先来一个没有中间层的吧！输入层 784 个节点之间连接到输出层的 10 个节点上（输出层的 10 个节点对应 10 个数字，选择数值最大的节点作为结果），这样的模型应该算得上是简单暴力了吧！当然，这样做的准确率一定是不高的，不过我们可以之后慢慢调整嘛。炼丹怎么会一次成功呢？</p>
+<p><em>未完待续</em></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Spectop
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://spectop.github.io/2019/03/07/tensorflow-learning-3/" title="炼丹实战(3):手写数字识别">https://spectop.github.io/2019/03/07/tensorflow-learning-3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/TensorFlow/" rel="tag"><i class="fa fa-tag"></i> TensorFlow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/05/tensorflow-learning-2/" rel="next" title="炼丹实战(2):第一炉丹">
+                <i class="fa fa-chevron-left"></i> 炼丹实战(2):第一炉丹
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -499,6 +551,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -519,8 +575,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -605,6 +670,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MNIST-数据集"><span class="nav-number">2.</span> <span class="nav-text">MNIST 数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#坯子"><span class="nav-number">3.</span> <span class="nav-text">坯子</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -757,6 +838,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
