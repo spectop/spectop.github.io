@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://spectop.github.io/"/>
-  <updated>2019-04-23T10:09:56.435Z</updated>
+  <updated>2019-04-23T10:17:33.442Z</updated>
   <id>https://spectop.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://spectop.github.io/2019/04/23/enable-https-for-my-blog/"/>
     <id>https://spectop.github.io/2019/04/23/enable-https-for-my-blog/</id>
     <published>2019-04-23T09:35:06.000Z</published>
-    <updated>2019-04-23T10:09:56.435Z</updated>
+    <updated>2019-04-23T10:17:33.442Z</updated>
     
-    <content type="html"><![CDATA[<p>发现我的博客到现在还是HTTP 而不是 HTTPS，于是想为自己的博客开启 HTTPS。</p><p>于是在网上搜了一下，发现大多数是18年以前的老方法，使用其他网站做反向代理的，个人觉得不是很满意。然后我在 GitHub Pages 的 setting 里面看到了 <strong>Enforce HTTPS</strong> 的选项，这说明 GitHub 本身现在已经是支持的了，但是却不能勾选。</p><p>于是我去到阿里云，购买了一个免费的 SSL证书！</p><ol><li><p>点开<strong>管理控制台</strong>，点击自己博客的域名，可以看到域名的<strong>基本信息</strong></p></li><li><p>倒数第二行有一个<strong>SSL 证书</strong>，点击后面<strong>免费开启 SSL 证书</strong>的链接<img src="./enable-https-for-my-blog/pic1.png" alt="ssl"></p></li><li><p>选择第二个免费的证书<strong>Symantec DV SSL证书（免费版）</strong><img src="./enable-https-for-my-blog/pic2.png" alt=""></p></li><li><p>在下面<strong>要申请的域名</strong>中填上域名，填 “WWW”  代表全站，并<strong>勾选下面的复选框</strong>（默认情况下就是勾选的），如果域名填写合法，则下面的<strong>申请</strong>按钮会变亮起<img src="./enable-https-for-my-blog/pic3.png" alt=""></p></li><li><p>点击确定，跳转到证书管理，在<strong>未签发</strong>下面会出现刚才申请的证书<img src="./enable-https-for-my-blog/pic4.png" alt=""></p></li><li><p>点击<strong>申请</strong>按钮，再点击<strong>验证</strong>，验证通过后便可以<strong>提交审核</strong><img src="./enable-https-for-my-blog/pic5.png" alt=""></p></li><li><p>等待证书审核通过，就可以使用 <em><a href="https://你的域名" target="_blank" rel="noopener">https://你的域名</a></em> 来访问网站了，但是这时候，我们输入 spectop.tech 或者 spectop.github.io 来访问我的博客时，发现还是有小感叹号，还是使用 HTTP 进行访问的。这时候，回去看 GitHub Pages 的 setting，发现 <strong>Enforce HTTPS</strong>已经可以勾选了。勾选它，然后刷新，发现博客现在已经是使用 HTTPS 了</p><p><img src="./enable-https-for-my-blog/pic6.png" alt=""></p></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>发现我的博客到现在还是HTTP 而不是 HTTPS，于是想为自己的博客开启 HTTPS。</p><p>于是在网上搜了一下，发现大多数是18年以前的老方法，使用其他网站做反向代理的，个人觉得不是很满意。然后我在 GitHub Pages 的 setting 里面看到了 <strong>Enforce HTTPS</strong> 的选项，这说明 GitHub 本身现在已经是支持的了，但是却不能勾选。</p><p>于是我去到阿里云，购买了一个免费的 SSL证书！</p><ol><li><p>点开<strong>管理控制台</strong>，点击自己博客的域名，可以看到域名的<strong>基本信息</strong></p></li><li><p>倒数第二行有一个<strong>SSL 证书</strong>，点击后面<strong>免费开启 SSL 证书</strong>的链接<img src="/2019/04/23/enable-https-for-my-blog/pic1.png" alt="ssl"></p></li><li><p>选择第二个免费的证书<strong>Symantec DV SSL证书（免费版）</strong><img src="/2019/04/23/enable-https-for-my-blog/pic2.png" alt=""></p></li><li><p>在下面<strong>要申请的域名</strong>中填上域名，填 “WWW”  代表全站，并<strong>勾选下面的复选框</strong>（默认情况下就是勾选的），如果域名填写合法，则下面的<strong>申请</strong>按钮会变亮起<img src="/2019/04/23/enable-https-for-my-blog/pic3.png" alt=""></p></li><li><p>点击确定，跳转到证书管理，在<strong>未签发</strong>下面会出现刚才申请的证书<img src="/2019/04/23/enable-https-for-my-blog/pic4.png" alt=""></p></li><li><p>点击<strong>申请</strong>按钮，再点击<strong>验证</strong>，验证通过后便可以<strong>提交审核</strong><img src="/2019/04/23/enable-https-for-my-blog/pic5.png" alt=""></p></li><li><p>等待证书审核通过，就可以使用 <em><a href="https://你的域名" target="_blank" rel="noopener">https://你的域名</a></em> 来访问网站了，但是这时候，我们输入 spectop.tech 或者 spectop.github.io 来访问我的博客时，发现还是有小感叹号，还是使用 HTTP 进行访问的。这时候，回去看 GitHub Pages 的 setting，发现 <strong>Enforce HTTPS</strong>已经可以勾选了。勾选它，然后刷新，发现博客现在已经是使用 HTTPS 了</p><p><img src="/2019/04/23/enable-https-for-my-blog/pic6.png" alt=""></p></li></ol>]]></content>
     
     <summary type="html">
     
